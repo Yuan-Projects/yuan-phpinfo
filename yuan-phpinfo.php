@@ -67,6 +67,7 @@ $en=array(
 	'LDAP_SUPPORT'=>'LDAP Support',
 	'HASH_SUPPORT'=>'hash Support',
 	'MCRYPT_SUPPORT'=>'mcrypt Support',
+	'FTP_SUPPORT'=>'FTP Support',
 
 	'DB_SUPPORT'=>'Database Support',
 	'SQLITE_SUPPORT'=>'SQLite Support',
@@ -126,6 +127,7 @@ $zh=array(
 	'LDAP_SUPPORT'=>'LDAP 支持',
 	'HASH_SUPPORT'=>'hash 支持',
 	'MCRYPT_SUPPORT'=>'mcrypt 支持',
+	'FTP_SUPPORT'=>'FTP 支持',
 
 	'DB_SUPPORT'=>'数据库支持',
 	'SQLITE_SUPPORT'=>'SQLite 支持',
@@ -323,7 +325,7 @@ elseif ($gd_info)
 	$gd_version=$gd_info['GD Version'];
 else
 	$gd_version='<font color="red">UNKNOWN</font>';
-
+$ftp_support=isfun("ftp_login");
 $modules_main=<<<EOT
 <tr>
 	<th colspan="4">MODULES</th>
@@ -344,10 +346,10 @@ $modules_main=<<<EOT
 	<td>LDAP_SUPPORT</td><td>$ldap_support</td><td>HASH_SUPPORT</td><td>$hash_support</td>
 </tr>
 <tr>
-	<td>MCRYPT_SUPPORT</td><td>$mcrypt_support</td><td></td><td></td>
+	<td>MCRYPT_SUPPORT</td><td>$mcrypt_support</td><td>FTP_SUPPORT</td><td>$ftp_support</td>
 </tr>
 EOT;
-echo str_replace(array_keys($$language),array_values($$language),$modules_main);
+echo strtr($modules_main,$$language);
 ?>
 </table>
 
