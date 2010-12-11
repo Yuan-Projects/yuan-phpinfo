@@ -40,6 +40,10 @@ $en=array(
 	'PHPINFO'=>'PHP Information',
 	'PHP_INFO'=>'phpinfo()',
 	'PHP_VERSION'=>'PHP Version',
+	'PHP_SERVER_API'=>'Server API',
+	'PHP_ZEND_ENGINE'=>'Zend Engine',
+	'PHP_SHORT_OPEN_TAG'=>'Short Tag(&lt;? ?&gt;)',
+	'PHP_ENABLE_DL'=>'Enable dl',
 	'PHP_MEMORY_LIMIT'=>'Memory Limit',
 	'PHP_SAFEMODE'=>'Safe Mode',
 	'PHP_UPLOAD_MAX_FILESIZE'=>'Upload Max Filesize',
@@ -95,6 +99,10 @@ $zh=array(
 	'PHPINFO'=>'PHP 信息',
 	'PHP_INFO'=>'phpinfo()',
 	'PHP_VERSION'=>'PHP 版本',
+	'PHP_SERVER_API'=>'PHP运行方式',
+	'PHP_ZEND_ENGINE'=>'Zend引擎版本',
+	'PHP_SHORT_OPEN_TAG'=>'短标记(&lt;? ?&gt;)',
+	'PHP_ENABLE_DL'=>'动态加载链接库 enable_dl',
 	'PHP_MEMORY_LIMIT'=>'内存限制',
 	'PHP_SAFEMODE'=>'安全模式',
 	'PHP_UPLOAD_MAX_FILESIZE'=>'上传最大的文件大小',
@@ -244,6 +252,9 @@ echo strtr($ext_main,$$language);
 <?php 
 $php_version=PHP_VERSION;
 $php_sapi=php_sapi_name();
+$php_zend_engine=zend_version();
+$php_short_open_tag=show("short_open_tag");
+$php_enable_dl=show('enable_dl');
 $php_memory_limit=show("memory_limit");
 $php_safemode=show("safe_mode");
 $php_upload_max_filesize=show("upload_max_filesize");
@@ -266,6 +277,12 @@ $php_main=<<<EOT
 	<td>PHP_INFO</td><td><a href="?q=phpinfo" target="_blank">phpinfo()</a></td><td>PHP_VERSION</td><td>$php_version</td>
 </tr>
 <tr>
+	<td>PHP_SERVER_API</td><td>$php_sapi</td><td>PHP_ZEND_ENGINE</td><td>$php_zend_engine</td>
+</tr>
+<tr>
+	<td>PHP_SHORT_OPEN_TAG</td><td>$php_short_open_tag</td><td>PHP_ENABLE_DL</td><td>$php_enable_dl</td>
+</tr>
+<tr>
 	<td>PHP_MEMORY_LIMIT</td><td>$php_memory_limit</td><td>PHP_SAFEMODE</td><td>$php_safemode</td>
 </tr>
 <tr>
@@ -281,7 +298,7 @@ $php_main=<<<EOT
 	<td>PHP_ALLOW_URL_FOPEN</td><td>$php_allow_url_fopen</td><td>PHP_DISABLE_FUNCTIONS</td><td>$php_disable_functions</td>
 </tr>
 EOT;
-echo str_replace(array_keys($$language),array_values($$language),$php_main);
+echo strtr($php_main,$$language);
 ?>
 </table>
 
