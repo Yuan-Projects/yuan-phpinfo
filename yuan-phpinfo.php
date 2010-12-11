@@ -27,6 +27,7 @@ $en=array(
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
 	'SERVER_OS'=>'Server OS',
+	'SERVER_TIME'=>'Server Time',
 	'SERVER_FREESPACE'=>'Disk Free Space',
 	'SERVER_PORT'=>'Server Port',
 	'SERVER_DOCUMENTROOT'=>'Document Root',
@@ -75,6 +76,7 @@ $zh=array(
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
 	'SERVER_OS'=>'服务器操作系统',
+	'SERVER_TIME'=>'服务器时间',
 	'SERVER_FREESPACE'=>'磁盘剩余空间',
 	'SERVER_PORT'=>'端口',
 	'SERVER_DOCUMENTROOT'=>'文档根目录',
@@ -156,6 +158,7 @@ function isfun($funName = '') {
 }
 $server_software=$_SERVER['SERVER_SOFTWARE'];
 $server_system=php_uname();
+$server_time=date('Y F d, H:i:s',time());
 $server_freespace=round(disk_free_space(".")/(1024*1024*1024));
 $server_port=$_SERVER['SERVER_PORT'];
 $server_documentroot=$_SERVER['DOCUMENT_ROOT'];
@@ -177,6 +180,9 @@ $main=<<<EOD
 </tr>
 <tr>
 	<td>SERVER_OS</td><td>$server_system</td>
+</tr>
+<tr>
+	<td>SERVER_TIME</td><td>$server_time</td>
 </tr>
 <tr>
 	<td>SERVER_FREESPACE</td><td>{$server_freespace}&nbsp;G</td>
