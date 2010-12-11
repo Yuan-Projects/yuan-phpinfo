@@ -183,9 +183,7 @@ $server_zendoptimizer_support=(get_cfg_var("zend_optimizer.optimization_level")|
 $extensions=get_loaded_extensions();
 $server_extensions='';
 foreach ($extensions as $key=>$value) {
-	if ($key!=0 && $key%13==0) {
-		$server_extensions.='<br />';
-	}
+	if ($key!=0 && $key%17==0) {$server_extensions.='<br />';}
 	$server_extensions.=$value."&nbsp;&nbsp;";
 }
 $main=<<<EOD
@@ -237,7 +235,8 @@ $ext_main=<<<EOT
 	<td>$server_extensions</td>
 </tr>
 EOT;
-echo str_replace(array_keys($$language),array_values($$language),$ext_main);
+//echo str_replace(array_keys($$language),array_values($$language),$ext_main);
+echo strtr($ext_main,$$language);
 ?>
 </table>
 
