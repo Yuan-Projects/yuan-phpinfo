@@ -72,6 +72,8 @@ $en=array(
 	'DB_SUPPORT'=>'Database Support',
 	'SQLITE_SUPPORT'=>'SQLite Support',
 	'MYSQL_SUPPORT'=>'MySQL Support',
+	'DBASE_SUPPORT'=>'dBase Support',
+	'DBA_SUPPORT'=>'DBA Support',
 
 	'WELCOME'=>"Thank you for using %s Version: %s" ,
 
@@ -132,6 +134,8 @@ $zh=array(
 	'DB_SUPPORT'=>'数据库支持',
 	'SQLITE_SUPPORT'=>'SQLite 支持',
 	'MYSQL_SUPPORT'=>'MySQL 支持',
+	'DBASE_SUPPORT'=>'dBase 支持',
+	'DBA_SUPPORT'=>'DBA 支持',
 	
 	'WELCOME'=>"感谢选择 %s 版本： %s" ,
 
@@ -357,6 +361,8 @@ echo strtr($modules_main,$$language);
 <?php
 $sqlite_support=isfun("sqlite_close");
 $mysql_support=isfun("mysql_close");
+$dbase_support=isfun('dbase_close');
+$dba_support=isfun('dba_close');
 $db_main=<<<EOT
 <tr>
 	<th colspan="2">DB_SUPPORT</th>
@@ -366,6 +372,12 @@ $db_main=<<<EOT
 </tr>
 <tr>
 	<td>MYSQL_SUPPORT</td><td>$mysql_support</td>
+</tr>
+<tr>
+	<td>DBASE_SUPPORT</td><td>$dbase_support</td>
+</tr>
+<tr>
+	<td>DBA_SUPPORT</td><td>$dba_support</td>
 </tr>
 EOT;
 echo strtr($db_main,$$language);
