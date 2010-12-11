@@ -10,7 +10,7 @@ if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 * {font-family: Tahoma, "Microsoft Yahei", Arial; }
 body{text-align: center; margin: 0 auto; padding: 0; background-color:#FFFFFF;font-size:12px;font-family:Tahoma, Arial}
 #page {width: 920px; padding: 0 20px; margin: 0 auto; text-align: left;}
-table{clear:both;padding: 0; margin: 0 0 10px;border-collapse:collapse; border-spacing: 0;}
+table{clear:both;padding: 0; margin: 0 0 10px;border-collapse:collapse; border-spacing: 0;width:850px;}
 th{padding: 3px 6px; font-weight:bold;background:#D7E9FB;color:#000;}
 tr{padding: 0; background:#FFF;}
 td{padding: 3px 6px; border:1px solid #D7E9FB;}
@@ -126,7 +126,7 @@ else
 function t($str)
 {
 	global $language,$zh,$en;
-	return str_replace(array_keys($$language),array_values($$language),$str); 
+	return strtr($str,$$language);
 }
 ?>
 <div id="page">
