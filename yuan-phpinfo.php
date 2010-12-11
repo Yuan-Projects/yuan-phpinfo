@@ -368,7 +368,7 @@ $db_main=<<<EOT
 	<td>MYSQL_SUPPORT</td><td>$mysql_support</td>
 </tr>
 EOT;
-echo str_replace(array_keys($$language),array_values($$language),$db_main);
+echo strtr($db_main,$$language);
 ?>
 </table>
 </div>
