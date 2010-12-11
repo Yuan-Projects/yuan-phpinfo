@@ -5,7 +5,7 @@ if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>My PHPINFO</title>
+<title>Yuan PHPINFO</title>
 <style type="text/css">
 * {font-family: Tahoma, "Microsoft Yahei", Arial; }
 body{text-align: center; margin: 0 auto; padding: 0; background-color:#FFFFFF;font-size:12px;font-family:Tahoma, Arial}
@@ -14,24 +14,19 @@ table{clear:both;padding: 0; margin: 0 0 10px;border-collapse:collapse; border-s
 th{padding: 3px 6px; font-weight:bold;background:#D7E9FB;color:#000;}
 tr{padding: 0; background:#FFF;}
 td{padding: 3px 6px; border:1px solid #D7E9FB;}
-#header{
-	float:right;
-	clear:both;
-}
-#welcome{
-	float:left;
-	clear:both;
-}
+#header{float:right;clear:both;}
+#welcome{float:left;clear:both;}
 </style>
 </head>
 
 <body>
 <?php 
-define('NAME','MyPHPINFO');
+define('NAME','Yuan PHPINFO');
 define('V','1.0');
 $en=array(
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
+	'SERVER_OS'=>'Server OS',
 	'SERVER_FREESPACE'=>'Disk Free Space',
 	'SERVER_PORT'=>'Server Port',
 	'SERVER_DOCUMENTROOT'=>'Document Root',
@@ -79,6 +74,7 @@ $en=array(
 $zh=array(
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
+	'SERVER_OS'=>'服务器操作系统',
 	'SERVER_FREESPACE'=>'磁盘剩余空间',
 	'SERVER_PORT'=>'端口',
 	'SERVER_DOCUMENTROOT'=>'文档根目录',
@@ -180,7 +176,7 @@ $main=<<<EOD
 	<td>SERVER_SOFTWARE</td><td>$server_software</td>
 </tr>
 <tr>
-	<td>SERVER_SOFTWARE</td><td>$server_system</td>
+	<td>SERVER_OS</td><td>$server_system</td>
 </tr>
 <tr>
 	<td>SERVER_FREESPACE</td><td>{$server_freespace}&nbsp;G</td>
