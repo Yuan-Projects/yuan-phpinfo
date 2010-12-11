@@ -27,10 +27,14 @@ $en=array(
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
 	'SERVER_OS'=>'Server OS',
+	'SERVER_NAME'=>'Server Name',
+	'SERVER_ADDR'=>'Server IP',
 	'SERVER_TIME'=>'Server Time',
 	'SERVER_FREESPACE'=>'Disk Free Space',
+	'SERVER_ADMIN'=>'Server Admin',
 	'SERVER_PORT'=>'Server Port',
 	'SERVER_DOCUMENTROOT'=>'Document Root',
+	'SCRIPT_FILENAME'=>'Script FileName',
 	'SERVER_ZENDOPTIMIZER_SUPPORT'=>'Zend Optimizer',
 	'LOADEDEXTENSIONS'=>'Loaded Extensions',
 	'PHPINFO'=>'PHP Information',
@@ -71,15 +75,21 @@ $en=array(
 	'NONE'=>'None',
 
 	'VERSION'=>'Version',
+
+	'dateFormat'=>'F d Y, H:i:s',
 );
 $zh=array(
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
 	'SERVER_OS'=>'服务器操作系统',
+	'SERVER_NAME'=>'服务器域名',
 	'SERVER_TIME'=>'服务器时间',
+	'SERVER_ADDR'=>'服务器 IP',
 	'SERVER_FREESPACE'=>'磁盘剩余空间',
+	'SERVER_ADMIN'=>'服务器管理员',
 	'SERVER_PORT'=>'端口',
 	'SERVER_DOCUMENTROOT'=>'文档根目录',
+	'SCRIPT_FILENAME'=>'当前文件名',
 	'SERVER_ZENDOPTIMIZER_SUPPORT'=>'Zend Optimizer',
 	'LOADEDEXTENSIONS'=>'载入的扩展',
 	'PHPINFO'=>'PHP 信息',
@@ -119,6 +129,8 @@ $zh=array(
 	'SUPPORT'=>'支持',
 	'NONE'=>'无',
 	'VERSION'=>'版本',
+
+	'dateFormat'=>'Y年n月j日 H:i:s',
 );
 $languages=array('en','zh');
 if(!isset($_GET['l']) || !in_array($_GET['l'],$languages) || $_GET['l']=='en')
@@ -158,10 +170,15 @@ function isfun($funName = '') {
 }
 $server_software=$_SERVER['SERVER_SOFTWARE'];
 $server_system=php_uname();
-$server_time=date('Y F d, H:i:s',time());
+$server_name=$_SERVER['SERVER_NAME'];
+$server_addr=$_SERVER['SERVER_ADDR'];
+$languageArray=$$language;
+$server_time=date($languageArray['dateFormat'],time());
 $server_freespace=round(disk_free_space(".")/(1024*1024*1024));
+$server_admin=$_SERVER['SERVER_ADMIN'];
 $server_port=$_SERVER['SERVER_PORT'];
 $server_documentroot=$_SERVER['DOCUMENT_ROOT'];
+$script_filename=$_SERVER['SCRIPT_FILENAME'];
 $server_zendoptimizer_support=(get_cfg_var("zend_optimizer.optimization_level")||get_cfg_var("zend_extension_manager.optimizer_ts")||get_cfg_var("zend_extension_ts"))?"SUPPORT":"NOTSUPPORT";
 $extensions=get_loaded_extensions();
 $server_extensions='';
@@ -182,16 +199,25 @@ $main=<<<EOD
 	<td>SERVER_OS</td><td>$server_system</td>
 </tr>
 <tr>
+	<td>SERVER_NAME/SERVER_ADDR</td><td>$server_name($server_addr)</td>
+</tr>
+<tr>
 	<td>SERVER_TIME</td><td>$server_time</td>
 </tr>
 <tr>
 	<td>SERVER_FREESPACE</td><td>{$server_freespace}&nbsp;G</td>
 </tr>
 <tr>
+	<td>SERVER_ADMIN</td><td>{$server_admin}&nbsp;</td>
+</tr>
+<tr>
 	<td>SERVER_PORT</td><td>$server_port</td>
 </tr>
 <tr>
 	<td>SERVER_DOCUMENTROOT</td><td>$server_documentroot</td>
+</tr>
+<tr>
+	<td>SCRIPT_FILENAME</td><td>$script_filename</td>
 </tr>
 <tr>
 	<td>SERVER_ZENDOPTIMIZER_SUPPORT</td><td>$server_zendoptimizer_support</td>
