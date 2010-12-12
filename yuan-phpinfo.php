@@ -1,13 +1,7 @@
 <?php
-/**
- * Simple function to replicate PHP 5 behaviour
- */
-function microtime_float()
-{
-    list($usec, $sec) = explode(" ", microtime());
-    return ((float)$usec + (float)$sec);
-}
 define('YUANSTART', microtime_float());
+define('NAME','Yuan PHPINFO');
+define('V','1.0');
 if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -30,8 +24,6 @@ td{padding: 3px 6px; border:1px solid #D7E9FB;}
 
 <body>
 <?php 
-define('NAME','Yuan PHPINFO');
-define('V','1.0');
 $en=array(
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
@@ -192,11 +184,7 @@ if(!isset($_GET['l']) || !in_array($_GET['l'],$languages) || $_GET['l']=='en')
 	$language='en';
 else
 	$language='zh';
-function t($str)
-{
-	global $language,$zh,$en;
-	return strtr($str,$$language);
-}
+
 ?>
 <div id="page">
 <div id="header">
@@ -204,25 +192,8 @@ function t($str)
 <div id="welcome"><?php printf(t("WELCOME"),NAME,V);?></div>
 <table align="center" border="1px">
 <?php 
-//检测PHP设置参数
-function show($varName) {
-	switch($result = get_cfg_var($varName)) {
-		case 0:
-			return t('NOTSUPPORT');
-			break;
-		case 1:
-			return t('SUPPORT');
-			break;
-		default:
-			return t($result);
-			break;
-	}
-}
-// 检测函数支持
-function isfun($funName = '') {
-    if (!$funName || trim($funName) == '' || preg_match('~[^a-z0-9\_]+~i', $funName, $tmp)) return t('ERROR');
-	return (false !== function_exists($funName)) ? t('SUPPORT') :'<font color="red">'.t('NOTSUPPORT').'</font>';
-}
+
+
 $server_software=$_SERVER['SERVER_SOFTWARE'];
 $server_system=php_uname();
 $server_name=$_SERVER['SERVER_NAME'];
@@ -482,3 +453,38 @@ $time=YUANSTOP-YUANSTART;
 </div>
 </body>
 </html>
+<?php
+/** 函数列表 **/
+/**
+ * Simple function to replicate PHP 5 behaviour
+ */
+function microtime_float()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+// 检测函数支持
+function isfun($funName = '') {
+    if (!$funName || trim($funName) == '' || preg_match('~[^a-z0-9\_]+~i', $funName, $tmp)) return t('ERROR');
+	return (false !== function_exists($funName)) ? t('SUPPORT') :'<font color="red">'.t('NOTSUPPORT').'</font>';
+}
+//检测PHP设置参数
+function show($varName) {
+    switch($result = get_cfg_var($varName)) {
+        case 0:
+            return t('NOTSUPPORT');
+            break;
+        case 1:
+            return t('SUPPORT');
+            break;
+        default:
+            return t($result);
+            break;
+    }
+}
+function t($str)
+{
+    global $language,$zh,$en;
+    return strtr($str,$$language);
+}
+?>
