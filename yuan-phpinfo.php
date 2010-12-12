@@ -70,13 +70,19 @@ $en=array(
 	'XML_SUPPORT'=>'XML Support',
 	'ZLIB_SUPPORT'=>'Zlib Support',
 	'IAMP_SUPPORT'=>'IAMP Support',
-	'PREG_SUPPORT'=>'PREG Support',
+	'SMTP_SUPPORT'=>'SMTP Support',
 	'ICONV_SUPPORT'=>'iconv Support',
 	'MBSTRING_SUPPORT'=>'mbstring Support',
 	'LDAP_SUPPORT'=>'LDAP Support',
 	'HASH_SUPPORT'=>'hash Support',
 	'MCRYPT_SUPPORT'=>'mcrypt Support',
 	'FTP_SUPPORT'=>'FTP Support',
+        'SOKET_SUPPORT'=>'Socket Support',
+        'PCRE_SUPPORT'=>'Regular Expressions (Perl-Compatible)',
+        'PDF_SUPPORT'=>'PDF',
+        'MHASH_SUPPORT'=>'Mhash',
+        'BCMATH_SUPPORT'=>'BCMath Arbitrary Precision Mathematics',
+        'CALENDAR_SUPPORT'=>'Calendar',
 
 	'DB_SUPPORT'=>'Database Support',
         'DBX_SUPPORT'=>'dbx module',
@@ -136,19 +142,25 @@ $zh=array(
 	'PHP_ALLOW_URL_FOPEN'=>'允许打开远程文件',
 	'PHP_DISABLE_FUNCTIONS'=>'禁用的函数',
 
-	'MODULES'=>'Modules',
+	'MODULES'=>'模块',
 	'SESSION_SUPPORT'=>'Session 支持',
 	'GD_SUPPORT'=>'gd 支持',
 	'XML_SUPPORT'=>'XML 支持',
 	'ZLIB_SUPPORT'=>'Zlib 支持',
 	'IAMP_SUPPORT'=>'IAMP 支持',
-	'PREG_SUPPORT'=>'PREG 支持',
+	'SMTP_SUPPORT'=>'SMTP 支持',
 	'ICONV_SUPPORT'=>'iconv 支持',
 	'MBSTRING_SUPPORT'=>'mbstring 支持',
 	'LDAP_SUPPORT'=>'LDAP 支持',
 	'HASH_SUPPORT'=>'hash 支持',
 	'MCRYPT_SUPPORT'=>'mcrypt 支持',
 	'FTP_SUPPORT'=>'FTP 支持',
+        'SOKET_SUPPORT'=>'Socket支持',
+        'PCRE_SUPPORT'=>'Perl兼容正则表达式',
+        'PDF_SUPPORT'=>'PDF',
+        'MHASH_SUPPORT'=>'哈稀计算 MHash',
+        'BCMATH_SUPPORT'=>'高精度数学运算 BCMath',
+        'CALENDAR_SUPPORT'=>'历法运算 Calendar',
 
 	'DB_SUPPORT'=>'数据库支持',
         'DBX_SUPPORT'=>'dbx 模块',
@@ -345,13 +357,20 @@ $xml_support=isfun("xml_set_object");
 $gd_support=isfun("gd_info");
 $zlib_support=isfun("gzclose");
 $imap_support=isfun("imap_close");
-$preg_support=isfun("preg_match");
+$smtp_support=get_cfg_var("SMTP")?t('SUPPORT'):t('NOTSUPPORT');
 $iconv_support=isfun("iconv");
 $mb_support=isfun("mb_eregi");
 $ldap_support=isfun("ldap_close");
 $mcrypt_support=isfun("mcrypt_cbc");
 $hash_support=isfun("mhash_count");
 $gd_info=gd_info();
+$xml_parser_support=isfun("xml_set_object");
+$pcre_support=isfun('preg_match');
+$soket_support=isfun("socket_accept");
+$pdf_support=isfun('PDF_end_document');
+$mhash_support=isfun("mhash_count");
+$bcmath_support=isfun("bcadd");
+$calendar_support=isfun("cal_days_in_month");
 if (defined(GD_VERSION))
 	$gd_version=GD_VERSION;
 elseif ($gd_info)
@@ -370,7 +389,7 @@ $modules_main=<<<EOT
 	<td>XML_SUPPORT</td><td>$xml_support</td><td>ZLIB_SUPPORT</td><td>$zlib_support</td>
 </tr>
 <tr>
-	<td>IAMP_SUPPORT</td><td>$imap_support</td><td>PREG_SUPPORT</td><td>$preg_support</td>
+	<td>IAMP_SUPPORT</td><td>$imap_support</td><td>SMTP_SUPPORT</td><td>$smtp_support</td>
 </tr>
 <tr>
 	<td>ICONV_SUPPORT</td><td>$iconv_support</td><td>MBSTRING_SUPPORT</td><td>$mb_support</td>
@@ -380,6 +399,15 @@ $modules_main=<<<EOT
 </tr>
 <tr>
 	<td>MCRYPT_SUPPORT</td><td>$mcrypt_support</td><td>FTP_SUPPORT</td><td>$ftp_support</td>
+</tr>
+<tr>
+	<td>PCRE_SUPPORT</td><td>$pcre_support</td><td>SOKET_SUPPORT</td><td>$soket_support</td>
+</tr>
+<tr>
+	<td>PDF_SUPPORT</td><td>$pdf_support</td><td>MHASH_SUPPORT</td><td>$mhash_support</td>
+</tr>
+<tr>
+	<td>BCMATH_SUPPORT</td><td>$bcmath_support</td><td>CALENDAR_SUPPORT</td><td>$calendar_support</td>
 </tr>
 EOT;
 echo strtr($modules_main,$$language);
