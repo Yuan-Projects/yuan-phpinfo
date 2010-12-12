@@ -1,4 +1,13 @@
 <?php
+/**
+ * Simple function to replicate PHP 5 behaviour
+ */
+function microtime_float()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+define('YUANSTART', microtime_float());
 if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -70,11 +79,17 @@ $en=array(
 	'FTP_SUPPORT'=>'FTP Support',
 
 	'DB_SUPPORT'=>'Database Support',
+        'DBX_SUPPORT'=>'dbx module',
 	'SQLITE_SUPPORT'=>'SQLite Support',
 	'MYSQL_SUPPORT'=>'MySQL Support',
+        'MYSQLI_SUPPORT'=>'MySQL Improved Extension',
 	'DBASE_SUPPORT'=>'dBase Support',
 	'DBA_SUPPORT'=>'DBA Support',
+        'ODBC_SUPPORT'=>'ODBC Support',
+        'PDO_SUPPORT'=>'PDO Support',
 	'PGSQL_SUPPORT'=>'Postgre Support',
+        'MSSQL_SUPPORT'=>'Microsoft SQL Server',
+        'OCI8_SUPPORT'=>'Oracle Database',
 
 	'WELCOME'=>"Thank you for using %s Version: %s" ,
 
@@ -85,6 +100,9 @@ $en=array(
 	'VERSION'=>'Version',
 
 	'dateFormat'=>'F d Y, H:i:s',
+
+        'TIME_ELAPSED'=>'Time Elapsed',
+        'SECOND'=>'second',
 );
 $zh=array(
 	'SERVER_INFO'=>'服务器信息',
@@ -133,11 +151,17 @@ $zh=array(
 	'FTP_SUPPORT'=>'FTP 支持',
 
 	'DB_SUPPORT'=>'数据库支持',
+        'DBX_SUPPORT'=>'dbx 模块',
 	'SQLITE_SUPPORT'=>'SQLite 支持',
 	'MYSQL_SUPPORT'=>'MySQL 支持',
+        'MYSQLI_SUPPORT'=>'MySQL 改进扩展',
 	'DBASE_SUPPORT'=>'dBase 支持',
 	'DBA_SUPPORT'=>'DBA 支持',
+        'ODBC_SUPPORT'=>'ODBC 支持',
+        'PDO_SUPPORT'=>'PDO 支持',
 	'PGSQL_SUPPORT'=>'Postgre 支持',
+        'MSSQL_SUPPORT'=>'微软 SQL Server',
+        'OCI8_SUPPORT'=>'Oracle 数据库',
 	
 	'WELCOME'=>"感谢选择 %s 版本： %s" ,
 
@@ -147,6 +171,9 @@ $zh=array(
 	'VERSION'=>'版本',
 
 	'dateFormat'=>'Y年n月j日 H:i:s',
+
+        'TIME_ELAPSED'=>'花费时间',
+        'SECOND'=>'秒',
 );
 $languages=array('en','zh');
 if(!isset($_GET['l']) || !in_array($_GET['l'],$languages) || $_GET['l']=='en')
@@ -361,14 +388,32 @@ echo strtr($modules_main,$$language);
 
 <table width="600px" align="center" border="1px">
 <?php
+$dbx_support=isfun('dbx_close');
 $sqlite_support=isfun("sqlite_close");
 $mysql_support=isfun("mysql_close");
+$mysqli_support=class_exists('MySQLi')?strtr('SUPPORT',$$language):strtr('NOTSUPPORT', $$language);
 $dbase_support=isfun('dbase_close');
 $dba_support=isfun('dba_close');
+$odbc_support=isfun('odbc_close');
+$pdo_support=class_exists('PDO')?strtr('SUPPORT',$$language):strtr('NOTSUPPORT', $$language);
 $pgsql_support=isfun('pg_close');
+$mssql_support=isfun('mssql_close');
+$oci8_support=isfun('oci_close');
 $db_main=<<<EOT
 <tr>
 	<th colspan="2">DB_SUPPORT</th>
+</tr>
+<tr>
+	<td>DBA_SUPPORT</td><td>$dba_support</td>
+</tr>
+<tr>
+	<td>DBX_SUPPORT</td><td>$dbx_support</td>
+</tr>
+<tr>
+	<td>ODBC_SUPPORT</td><td>$odbc_support</td>
+</tr>
+<tr>
+	<td>PDO_SUPPORT</td><td>$pdo_support</td>
 </tr>
 <tr>
 	<td>SQLITE_SUPPORT</td><td>$sqlite_support</td>
@@ -377,17 +422,34 @@ $db_main=<<<EOT
 	<td>MYSQL_SUPPORT</td><td>$mysql_support</td>
 </tr>
 <tr>
+	<td>MYSQLI_SUPPORT</td><td>$mysqli_support</td>
+</tr>
+<tr>
 	<td>DBASE_SUPPORT</td><td>$dbase_support</td>
 </tr>
-<tr>
-	<td>DBA_SUPPORT</td><td>$dba_support</td>
-</tr>
+
+
 <tr>
 	<td>PGSQL_SUPPORT</td><td>$pgsql_support</td>
+</tr>
+<tr>
+	<td>MSSQL_SUPPORT</td><td>$mssql_support</td>
+</tr>
+<tr>
+	<td>OCI8_SUPPORT</td><td>$oci8_support</td>
 </tr>
 EOT;
 echo strtr($db_main,$$language);
 ?>
+</table>
+<?php
+define('YUANSTOP', microtime_float());
+$time=YUANSTOP-YUANSTART;
+?>
+<table width="600px" align="center" border="1px">
+    <tr>
+        <td><?php echo strtr('TIME_ELAPSED', $$language).':';printf("%.4f",$time);echo strtr('SECOND',$$language);?></td>
+    </tr>
 </table>
 </div>
 </body>
