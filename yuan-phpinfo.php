@@ -89,7 +89,7 @@ $en=array(
         'MSSQL_SUPPORT'=>'Microsoft SQL Server',
         'OCI8_SUPPORT'=>'Oracle Database',
 
-	'WELCOME'=>"Thank you for using %s Version: %s" ,
+	'WELCOME'=>"Thank you for using {soft} Version: {version}" ,
 
 	'NOTSUPPORT'=>'Not Support',
 	'SUPPORT'=>'Support',
@@ -167,7 +167,7 @@ $zh=array(
         'MSSQL_SUPPORT'=>'微软 SQL Server',
         'OCI8_SUPPORT'=>'Oracle 数据库',
 	
-	'WELCOME'=>"感谢选择 %s 版本： %s" ,
+	'WELCOME'=>"感谢选择 {soft} 版本： {version}" ,
 
 	'NOTSUPPORT'=>'不支持',
 	'SUPPORT'=>'支持',
@@ -189,7 +189,7 @@ else
 <div id="page">
 <div id="header">
 <a href="?l=en">English</a>&nbsp;<a href="?l=zh">中文</a></div>
-<div id="welcome"><?php printf(t("WELCOME"),NAME,V);?></div>
+    <div id="welcome"><?php echo t('WELCOME');?></div>
 <table align="center" border="1px">
 <?php 
 
@@ -482,9 +482,37 @@ function show($varName) {
             break;
     }
 }
-function t($str)
-{
-    global $language,$zh,$en;
-    return strtr($str,$$language);
+/**
+ * Returns a localized message according to user preferred language.
+ * @param string message to be translated
+ * @param array parameters to be applied to the translated message
+ * @return string translated message
+ */
+function t($message,$params=array()){
+    static $messages;
+    if($messages===null){
+        $messages=array();
+        if(($lang =  getPreferredLanguage()) !== false){
+            if(isset ($$lang))
+                $messages=$$lang;
+        }
+    }
+    if(empty ($message))
+        return $message;
+    if(isset ($messages[$message]) && $messages[$message]!=='')
+        $message=$messages[$message];
+    return $params!==array()?strtr($message, $params):$message;
+}
+function getPreferredLanguage(){
+    if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && ($n=preg_match_all('/([\w\-]+)\s*(;\s*q\s*=\s*(\d*\.\d*))?/',$_SERVER['HTTP_ACCEPT_LANGUAGE'],$matches)) > 0)
+    {
+        $languages=array();
+        for($i=0; $i < $n; ++$i)
+                $languages[$matches[1][$i]]=empty($matches[3][$i]) ? 1.0 : floatval($matches[3][$i]);
+        arsort($languages);
+        foreach($languages as $language=>$pref)
+            return strtolower(str_replace('-','_',$language));
+    }
+    return false;
 }
 ?>
