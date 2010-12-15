@@ -189,50 +189,47 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 <body>
 <div id="page">
     <div id="welcome"><?php echo t('WELCOME',array('{soft}'=>NAME,'{version}'=>V));?></div>
-<?php
-$server_info=array(
-    array(
-        t('SERVER_SOFTWARE'),
-        $_SERVER['SERVER_SOFTWARE'],
-    ),
-    array(
-        t('SERVER_OS'),
-        php_uname(),
-    ),
-    array(
-        t('SERVER_NAME').'/'.t('SERVER_ADDR'),
-        $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'],
-    ),
-    array(
-        t('SERVER_TIME'),
-        date('Y-m-d H:i:s',time()),
-    ),
-    array(
-        t('SERVER_FREESPACE'),
-        round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G',
-    ),
-    array(
-        t('SERVER_ADMIN'),
-        $_SERVER['SERVER_ADMIN'],
-    ),
-    array(
-        t('SERVER_PORT'),
-        $_SERVER['SERVER_PORT'],
-    ),
-    array(
-        t('SERVER_DOCUMENTROOT'),
-        $_SERVER['DOCUMENT_ROOT'],
-    ),
-    array(
-        t('SCRIPT_FILENAME'),
-        $_SERVER['SCRIPT_FILENAME'],
-    ),
-    //array(
-    //    t('SERVER_ZENDOPTIMIZER_SUPPORT'),
-    //
-    //),
-);
-?>
+    <?php
+    $server_info=array(
+        array(
+            t('SERVER_SOFTWARE'),
+            $_SERVER['SERVER_SOFTWARE'],
+        ),
+        array(
+            t('SERVER_OS'),
+            php_uname(),
+        ),
+        array(
+            t('SERVER_NAME').'/'.t('SERVER_ADDR'),
+            $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'],
+        ),
+        array(
+            t('SERVER_TIME'),
+            date('Y-m-d H:i:s',time()),
+        ),
+        array(
+            t('SERVER_FREESPACE'),
+            round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G',
+        ),
+        array(
+            t('SERVER_ADMIN'),
+            $_SERVER['SERVER_ADMIN'],
+        ),
+        array(
+            t('SERVER_PORT'),
+            $_SERVER['SERVER_PORT'],
+        ),
+        array(
+            t('SERVER_DOCUMENTROOT'),
+            $_SERVER['DOCUMENT_ROOT'],
+        ),
+        array(
+            t('SCRIPT_FILENAME'),
+            $_SERVER['SCRIPT_FILENAME'],
+        ),
+    );
+    ?>
+    
     <!-- Section 1 Server Information -->
     <table class="result">
         <tr><th><?php echo t('NAME');?></th><th><?php echo t('RESULT');?></th></tr>
