@@ -179,7 +179,7 @@ table{clear:both;padding: 0; margin: 0 0 10px;border-collapse:collapse; border-s
 th{padding: 3px 6px; font-weight:bold;background:#D7E9FB;color:#000;}
 tr{padding: 0; background:#FFF;}
 td{padding: 3px 6px; border:1px solid #D7E9FB;}
-#welcome{float:left;clear:both;}
+#welcome{ text-align: center;}
 table.result{	background:#E6ECFF none repeat scroll 0% 0%;	border-collapse:collapse;	width:600px; }
 table.result th{	background:#CCD9FF none repeat scroll 0% 0%;	text-align:left;}
 table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
@@ -188,7 +188,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 
 <body>
 <div id="page">
-    <div id="welcome"><?php echo t('WELCOME',array('{soft}'=>NAME,'{version}'=>V));?></div>
+    <div id="welcome"><strong><?php echo t('WELCOME',array('{soft}'=>NAME,'{version}'=>V));?></strong></div>
     <?php
     $server_info=array(
         array(
