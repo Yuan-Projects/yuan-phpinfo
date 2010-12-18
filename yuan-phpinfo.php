@@ -241,7 +241,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
         array( t('PHP_MAGIC_QUOTES_GPC'), show("magic_quotes_gpc"), ),
         array( t('PHP_MAGIC_QUOTES_RUNTIME'), show("magic_quotes_runtime"), ),
         array( t('PHP_ALLOW_URL_FOPEN'), show("allow_url_fopen"), ),
-        array( t('PHP_DISABLE_FUNCTIONS'), get_cfg_var("disable_functions"), )
+        array( t('PHP_DISABLE_FUNCTIONS'), get_cfg_var("disable_functions")?get_cfg_var("disable_functions"):  t('NONE'), )
     );
     ?>
     <table class="result">
