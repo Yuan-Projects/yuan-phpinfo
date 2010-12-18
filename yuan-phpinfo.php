@@ -191,42 +191,15 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
     <div id="welcome"><strong><?php echo t('WELCOME',array('{soft}'=>NAME,'{version}'=>V));?></strong></div>
     <?php
     $server_info=array(
-        array(
-            t('SERVER_SOFTWARE'),
-            $_SERVER['SERVER_SOFTWARE'],
-        ),
-        array(
-            t('SERVER_OS'),
-            php_uname(),
-        ),
-        array(
-            t('SERVER_NAME').'/'.t('SERVER_ADDR'),
-            $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'],
-        ),
-        array(
-            t('SERVER_TIME'),
-            date('Y-m-d H:i:s',time()),
-        ),
-        array(
-            t('SERVER_FREESPACE'),
-            round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G',
-        ),
-        array(
-            t('SERVER_ADMIN'),
-            $_SERVER['SERVER_ADMIN'],
-        ),
-        array(
-            t('SERVER_PORT'),
-            $_SERVER['SERVER_PORT'],
-        ),
-        array(
-            t('SERVER_DOCUMENTROOT'),
-            $_SERVER['DOCUMENT_ROOT'],
-        ),
-        array(
-            t('SCRIPT_FILENAME'),
-            $_SERVER['SCRIPT_FILENAME'],
-        ),
+        array( t('SERVER_SOFTWARE'), $_SERVER['SERVER_SOFTWARE'], ),
+        array( t('SERVER_OS'), php_uname(), ),
+        array( t('SERVER_NAME').'/'.t('SERVER_ADDR'), $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'], ),
+        array( t('SERVER_TIME'), date('Y-m-d H:i:s',time()), ),
+        array( t('SERVER_FREESPACE'), round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G', ),
+        array( t('SERVER_ADMIN'), $_SERVER['SERVER_ADMIN'], ),
+        array( t('SERVER_PORT'), $_SERVER['SERVER_PORT'], ),
+        array( t('SERVER_DOCUMENTROOT'), $_SERVER['DOCUMENT_ROOT'], ),
+        array( t('SCRIPT_FILENAME'), $_SERVER['SCRIPT_FILENAME'], ),
     );
     ?>
     
@@ -253,70 +226,22 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
     <!-- Section 3 PHP Information -->
     <?php
     $php_info=array(
-        array(
-            t('PHP_INFO'),
-            '<a href="?q=phpinfo" target="_blank">phpinfo()</a>',
-        ),
-        array(
-            t('PHP_VERSION'),
-            phpversion(),
-        ),
-        array(
-            t('PHP_SERVER_API'),
-            php_sapi_name(),
-        ),
-        array(
-            t('PHP_ZEND_ENGINE'),
-            zend_version(),
-        ),
-        array(
-            t('PHP_SHORT_OPEN_TAG'),
-            show("short_open_tag"),
-        ),
-        array(
-            t('PHP_ENABLE_DL'),
-            show('enable_dl'),
-        ),
-        array(
-            t('PHP_MEMORY_LIMIT'),
-            show("memory_limit"),
-        ),
-        array(
-            t('PHP_SAFEMODE'),
-            show("safe_mode"),
-        ),
-        array(
-            t('PHP_UPLOAD_MAX_FILESIZE'),
-            show("upload_max_filesize"),
-        ),
-        array(
-            t('PHP_MAX_EXECUTION_TIME'),
-            show("max_execution_time"),
-        ),
-        array(
-            t('PHP_DISPLAY_ERRORS'),
-            show("display_errors"),
-        ),
-        array(
-            t('PHP_REGISTER_GLOBALS'),
-            show("register_globals"),
-        ),
-        array(
-            t('PHP_MAGIC_QUOTES_GPC'),
-            show("magic_quotes_gpc"),
-        ),
-        array(
-            t('PHP_MAGIC_QUOTES_RUNTIME'),
-            show("magic_quotes_runtime"),
-        ),
-        array(
-            t('PHP_ALLOW_URL_FOPEN'),
-            show("allow_url_fopen"),
-        ),
-        array(
-            t('PHP_DISABLE_FUNCTIONS'),
-            get_cfg_var("disable_functions"),
-        )
+        array( t('PHP_INFO'), '<a href="?q=phpinfo" target="_blank">phpinfo()</a>', ),
+        array( t('PHP_VERSION'), phpversion(), ),
+        array( t('PHP_SERVER_API'), php_sapi_name(), ),
+        array( t('PHP_ZEND_ENGINE'), zend_version(), ),
+        array( t('PHP_SHORT_OPEN_TAG'), show("short_open_tag"), ),
+        array( t('PHP_ENABLE_DL'), show('enable_dl'), ),
+        array( t('PHP_MEMORY_LIMIT'), show("memory_limit"), ),
+        array( t('PHP_SAFEMODE'), show("safe_mode"), ),
+        array( t('PHP_UPLOAD_MAX_FILESIZE'), show("upload_max_filesize"), ),
+        array( t('PHP_MAX_EXECUTION_TIME'), show("max_execution_time"), ),
+        array( t('PHP_DISPLAY_ERRORS'), show("display_errors"), ),
+        array( t('PHP_REGISTER_GLOBALS'), show("register_globals"), ),
+        array( t('PHP_MAGIC_QUOTES_GPC'), show("magic_quotes_gpc"), ),
+        array( t('PHP_MAGIC_QUOTES_RUNTIME'), show("magic_quotes_runtime"), ),
+        array( t('PHP_ALLOW_URL_FOPEN'), show("allow_url_fopen"), ),
+        array( t('PHP_DISABLE_FUNCTIONS'), get_cfg_var("disable_functions"), )
     );
     ?>
     <table class="result">
