@@ -1,7 +1,7 @@
 <?php
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
-define('V','1.0');
+define('V','0.1');
 if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 /**
  * translated messages
