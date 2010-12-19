@@ -255,6 +255,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 			default:
 				break;
 		}
+		if($sysInfo):
 		$hardware_info=array(
 			array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
 			array( t('CPU_NAME'), $sysInfo['cpu']['model'], ),
@@ -272,6 +273,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
         </tr>
         <?php endforeach;?>
     </table>
+	<?php endif;?>
 	<?php endif;?>
 	
     <!-- Section 2 Loaded extensions -->
