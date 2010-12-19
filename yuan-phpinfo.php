@@ -7,8 +7,8 @@ if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
  * translated messages
  */
 $en=array(
-        'NAME'=>'Name',
-        'RESULT'=>'Result',
+	'NAME'=>'Name',
+	'RESULT'=>'Result',
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
 	'SERVER_OS'=>'Server OS',
@@ -53,25 +53,25 @@ $en=array(
 	'HASH_SUPPORT'=>'hash Support',
 	'MCRYPT_SUPPORT'=>'mcrypt Support',
 	'FTP_SUPPORT'=>'FTP Support',
-        'SOKET_SUPPORT'=>'Socket Support',
-        'PCRE_SUPPORT'=>'Regular Expressions (Perl-Compatible)',
-        'PDF_SUPPORT'=>'PDF',
-        'MHASH_SUPPORT'=>'Mhash',
-        'BCMATH_SUPPORT'=>'BCMath Arbitrary Precision Mathematics',
-        'CALENDAR_SUPPORT'=>'Calendar',
+	'SOKET_SUPPORT'=>'Socket Support',
+	'PCRE_SUPPORT'=>'Regular Expressions (Perl-Compatible)',
+	'PDF_SUPPORT'=>'PDF',
+	'MHASH_SUPPORT'=>'Mhash',
+	'BCMATH_SUPPORT'=>'BCMath Arbitrary Precision Mathematics',
+	'CALENDAR_SUPPORT'=>'Calendar',
 
 	'DB_SUPPORT'=>'Database Support',
-        'DBX_SUPPORT'=>'dbx module',
+	'DBX_SUPPORT'=>'dbx module',
 	'SQLITE_SUPPORT'=>'SQLite Support',
 	'MYSQL_SUPPORT'=>'MySQL Support',
-        'MYSQLI_SUPPORT'=>'MySQL Improved Extension',
+	'MYSQLI_SUPPORT'=>'MySQL Improved Extension',
 	'DBASE_SUPPORT'=>'dBase Support',
 	'DBA_SUPPORT'=>'DBA Support',
-        'ODBC_SUPPORT'=>'ODBC Support',
-        'PDO_SUPPORT'=>'PDO Support',
+	'ODBC_SUPPORT'=>'ODBC Support',
+	'PDO_SUPPORT'=>'PDO Support',
 	'PGSQL_SUPPORT'=>'Postgre Support',
-        'MSSQL_SUPPORT'=>'Microsoft SQL Server',
-        'OCI8_SUPPORT'=>'Oracle Database',
+	'MSSQL_SUPPORT'=>'Microsoft SQL Server',
+	'OCI8_SUPPORT'=>'Oracle Database',
 
 	'WELCOME'=>"Thank you for using {soft} Version: {version}" ,
 
@@ -83,12 +83,12 @@ $en=array(
 
 	'dateFormat'=>'F d Y, H:i:s',
 
-        'TIME_ELAPSED'=>'Time Elapsed',
-        'SECOND'=>'second',
+	'TIME_ELAPSED'=>'Time Elapsed',
+	'SECOND'=>'second',
 );
 $zh_cn=array(
-        'NAME'=>'项目名称',
-        'RESULT'=>'结果',
+	'NAME'=>'项目名称',
+	'RESULT'=>'结果',
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
 	'SERVER_OS'=>'服务器操作系统',
@@ -133,25 +133,25 @@ $zh_cn=array(
 	'HASH_SUPPORT'=>'hash 支持',
 	'MCRYPT_SUPPORT'=>'mcrypt 支持',
 	'FTP_SUPPORT'=>'FTP 支持',
-        'SOKET_SUPPORT'=>'Socket支持',
-        'PCRE_SUPPORT'=>'Perl兼容正则表达式',
-        'PDF_SUPPORT'=>'PDF',
-        'MHASH_SUPPORT'=>'哈稀计算 MHash',
-        'BCMATH_SUPPORT'=>'高精度数学运算 BCMath',
-        'CALENDAR_SUPPORT'=>'历法运算 Calendar',
+	'SOKET_SUPPORT'=>'Socket支持',
+	'PCRE_SUPPORT'=>'Perl兼容正则表达式',
+	'PDF_SUPPORT'=>'PDF',
+	'MHASH_SUPPORT'=>'哈稀计算 MHash',
+	'BCMATH_SUPPORT'=>'高精度数学运算 BCMath',
+	'CALENDAR_SUPPORT'=>'历法运算 Calendar',
 
 	'DB_SUPPORT'=>'数据库支持',
-        'DBX_SUPPORT'=>'dbx 模块',
+	'DBX_SUPPORT'=>'dbx 模块',
 	'SQLITE_SUPPORT'=>'SQLite 支持',
 	'MYSQL_SUPPORT'=>'MySQL 支持',
-        'MYSQLI_SUPPORT'=>'MySQL 改进扩展',
+	'MYSQLI_SUPPORT'=>'MySQL 改进扩展',
 	'DBASE_SUPPORT'=>'dBase 支持',
 	'DBA_SUPPORT'=>'DBA 支持',
-        'ODBC_SUPPORT'=>'ODBC 支持',
-        'PDO_SUPPORT'=>'PDO 支持',
+	'ODBC_SUPPORT'=>'ODBC 支持',
+	'PDO_SUPPORT'=>'PDO 支持',
 	'PGSQL_SUPPORT'=>'Postgre 支持',
-        'MSSQL_SUPPORT'=>'微软 SQL Server',
-        'OCI8_SUPPORT'=>'Oracle 数据库',
+	'MSSQL_SUPPORT'=>'微软 SQL Server',
+	'OCI8_SUPPORT'=>'Oracle 数据库',
 
 	'WELCOME'=>"感谢选择 {soft} 版本： {version}" ,
 
@@ -162,8 +162,8 @@ $zh_cn=array(
 
 	'dateFormat'=>'Y年n月j日 H:i:s',
 
-        'TIME_ELAPSED'=>'花费时间',
-        'SECOND'=>'秒',
+	'TIME_ELAPSED'=>'花费时间',
+	'SECOND'=>'秒',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -183,6 +183,7 @@ td{padding: 3px 6px; border:1px solid #D7E9FB;}
 table.result{	background:#E6ECFF none repeat scroll 0% 0%;	border-collapse:collapse;	width:600px; }
 table.result th{	background:#CCD9FF none repeat scroll 0% 0%;	text-align:left;}
 table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
+#ft{text-align:center;clear:both;}
 </style>
 </head>
 
@@ -321,6 +322,10 @@ $time=YUANSTOP-YUANSTART;
         <td><?php echo t('TIME_ELAPSED').':';printf("%.4f",$time);echo t('SECOND');?></td>
     </tr>
 </table>
+	<!-- Section Footer -->
+	<div id="ft">
+		Powered by <a href="http://projects.ourplanet.tk/yuan-phpinfo" target="_blank">Yuan PHPINFO</a>
+	</div>
 </div>
 </body>
 </html>
