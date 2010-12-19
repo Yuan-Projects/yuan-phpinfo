@@ -91,6 +91,11 @@ $en=array(
 	'CPU_NAME'=>'CPU Name',
 	'MEMORY'=>'Memory',
 	'UPTIME'=>'Uptime',
+	
+	//time and date
+	'DAY'=>'day(s)',
+	'HOUR'=>'hour(s)',
+	'MINUTE'=>'minute(s)',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
@@ -176,6 +181,11 @@ $zh_cn=array(
 	'CPU_NAME'=>'CPU 型号',
 	'MEMORY'=>'物理内存',
 	'UPTIME'=>'已运行时间',
+	
+	//time and date
+	'DAY'=>'天',
+	'HOUR'=>'小时',
+	'MINUTE'=>'分钟',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -249,7 +259,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 			array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
 			array( t('CPU_NAME'), $sysInfo['cpu']['model'], ),
 			array( t('UPTIME'), $sysInfo['uptime'], ),
-			array( t('MEMORY'), $sysInfo['memTotal'], ),
+			array( t('MEMORY'), round($sysInfo['memTotal']/1000/1000,3).' G', ),
 		);
     ?>
     
@@ -480,9 +490,9 @@ function sys_linux()
     $days = floor($hours / 24);
     $hours = floor($hours - ($days * 24));
     $min = floor($min - ($days * 60 * 24) - ($hours * 60));
-    if ($days !== 0) $res['uptime'] = $days."天";
-    if ($hours !== 0) $res['uptime'] .= $hours."小时";
-    $res['uptime'] .= $min."分钟";
+    if ($days !== 0) $res['uptime'] = '&nbsp;'.$days.t('DAY');
+    if ($hours !== 0) $res['uptime'] .= '&nbsp;'.$hours.t('HOUR');
+    $res['uptime'] .= '&nbsp;'.$min.t('MINUTE');
 
     // MEMORY
     if (false === ($str = @file("/proc/meminfo"))) return false;
@@ -528,9 +538,9 @@ function sys_freebsd() {
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."天";
-	if ($hours !== 0) $res['uptime'] .= $hours."小时";
-	$res['uptime'] .= $min."分钟";
+	if ($days !== 0) $res['uptime'] = '&nbsp;'.$days.t('DAY');
+	if ($hours !== 0) $res['uptime'] .= '&nbsp;'.$hours.t('HOUR');
+	$res['uptime'] .= '&nbsp;'.$min.t('MINUTE');
 
 	//MEMORY
 	if (false === ($buf = get_key("hw.physmem"))) return false;
@@ -610,9 +620,9 @@ function sys_windows() {
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."天";
-	if ($hours !== 0) $res['uptime'] .= $hours."小时";
-	$res['uptime'] .= $min."分钟";
+	if ($days !== 0) $res['uptime'] = '&nbsp;'.$days.t('DAY');
+	if ($hours !== 0) $res['uptime'] .= '&nbsp;'.$hours.t('HOUR');
+	$res['uptime'] .= '&nbsp;'.$min.t('MINUTE');
 
 	//MEMORY
 	$res['memTotal'] = $sysinfo[0]['TotalVisibleMemorySize'];
