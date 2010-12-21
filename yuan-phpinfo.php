@@ -260,7 +260,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 			array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
 			array( t('CPU_NAME'), $sysInfo['cpu']['model'], ),
 			array( t('UPTIME'), $sysInfo['uptime'], ),
-			array( t('MEMORY'), round($sysInfo['memTotal']/1024/1024,3).' G', ),
+			array( t('MEMORY'), round($sysInfo['memTotal']/1024/1024,2).' G', ),
 		);
     ?>
     
