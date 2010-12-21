@@ -96,6 +96,16 @@ $en=array(
 	'DAY'=>'day(s)',
 	'HOUR'=>'hour(s)',
 	'MINUTE'=>'minute(s)',
+	
+	'VERSION'=>'Version',
+	'MYSQL_CLIENT_VERSION'=>'Mysql client',
+	
+	'MYSQL_CONNECTION_TEST'=>'MySQL Connection Test',
+	'MYSQL_HOST'=>'Host',
+	'MYSQL_HOST_PORT'=>'',
+	'MYSQL_USERNAME'=>'用户名',
+	'MYSQL_PASSWORD'=>'密码',
+	'SUBMIT'=>'提交',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
@@ -186,6 +196,17 @@ $zh_cn=array(
 	'DAY'=>'天',
 	'HOUR'=>'小时',
 	'MINUTE'=>'分钟',
+	
+	'VERSION'=>'版本',
+	'MYSQL_CLIENT_VERSION'=>'Mysql 客户端版本',
+	
+	'MYSQL_CONNECTION_TEST'=>'MySQL 连接测试',
+	'MYSQL_HOST'=>'地址',
+	'MYSQL_HOST_PORT'=>'端口',
+	'MYSQL_USERNAME'=>'用户名',
+	'MYSQL_PASSWORD'=>'密码',
+	'SUBMIT'=>'提交',
+	
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -356,8 +377,8 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
         array(t('DBX_SUPPORT'),isfun('dbx_close')),
         array(t('ODBC_SUPPORT'),isfun('odbc_close')),
         array(t('PDO_SUPPORT'),class_exists('PDO')?t('SUPPORT'):t('NOTSUPPORT')),
-        array(t('SQLITE_SUPPORT'),isfun("sqlite_close")),
-        array(t('MYSQL_SUPPORT'),isfun("mysql_close")),
+        array(t('SQLITE_SUPPORT'),isfun("sqlite_close").'&nbsp;'.t('VERSION').':'.@sqlite_libversion()),
+        array(t('MYSQL_SUPPORT'),isfun("mysql_close").'&nbsp;'.t('MYSQL_CLIENT_VERSION').':'.@mysql_get_client_info()),
         array(t('MYSQLI_SUPPORT'),class_exists('MySQLi')?t('SUPPORT'):t('NOTSUPPORT')),
         array(t('DBASE_SUPPORT'),isfun('dbase_close')),
         array(t('PGSQL_SUPPORT'),isfun('pg_close')),
@@ -373,7 +394,25 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
         </tr>
         <?php endforeach;?>
     </table>
-
+	
+	<!-- Section 5b MySQL connection test  -->
+    <?php
+	if(in_array('mysql',$extensions)):
+    
+    ?>
+    <table class="result">
+        <tr><th><?php echo t('MYSQL_CONNECTION_TEST');?></th></tr>
+        <tr>
+            <td><form action="<?php echo $_SERVER['PHP_SELF'];?>"><?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" />&nbsp;
+				<?php echo t('MYSQL_HOST_PORT');?><input type="text" name="mysql_host_port" />&nbsp;
+				<?php echo t('MYSQL_USERNAME');?><input type="text" name="mysql_username" />&nbsp;
+				<?php echo t('MYSQL_PASSWORD');?><input type="password" name="mysql_password" />&nbsp;
+				<input type="submit" value="<?php echo t('SUBMIT');?>" />
+			</form></td>
+        </tr>
+    </table>
+	<?php endif;?>
+	
 <?php
 define('YUANSTOP', microtime_float());
 $time=YUANSTOP-YUANSTART;
