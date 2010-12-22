@@ -102,10 +102,10 @@ $en=array(
 	
 	'MYSQL_CONNECTION_TEST'=>'MySQL Connection Test',
 	'MYSQL_HOST'=>'Host',
-	'MYSQL_HOST_PORT'=>'',
-	'MYSQL_USERNAME'=>'用户名',
-	'MYSQL_PASSWORD'=>'密码',
-	'SUBMIT'=>'提交',
+	'MYSQL_HOST_PORT'=>'Port',
+	'MYSQL_USERNAME'=>'Username',
+	'MYSQL_PASSWORD'=>'Password',
+	'SUBMIT'=>'Submit',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
