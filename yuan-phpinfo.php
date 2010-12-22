@@ -643,6 +643,7 @@ function sys_windows() {
 	if (null == $res['cpu']['num']) {
 		$res['cpu']['num'] = 1;
 	}
+	$res['cpu']['model']=$res['cpu']['cache']='';//初始化
 	for ($i=0;$i<$res['cpu']['num'];$i++){
 		$res['cpu']['model'] .= $cpuinfo[0]['Name']."<br />";
 		$res['cpu']['cache'] .= $cpuinfo[0]['L2CacheSize']."<br />";
