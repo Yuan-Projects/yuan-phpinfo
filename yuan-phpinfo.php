@@ -107,6 +107,9 @@ $en=array(
 	'MYSQL_USERNAME'=>'Username',
 	'MYSQL_PASSWORD'=>'Password',
 	'SUBMIT'=>'Submit',
+	'MYSQL_CONNECTION_OK'=>'<font color="green">Successful connection</font>',
+	'MYSQL_SERVER_VERSION'=>'MySQL Sever Version',
+	'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
@@ -207,7 +210,9 @@ $zh_cn=array(
 	'MYSQL_USERNAME'=>'用户名',
 	'MYSQL_PASSWORD'=>'密码',
 	'SUBMIT'=>'提交',
-	
+	'MYSQL_CONNECTION_OK'=>'<font color="green">连接成功</font>',
+	'MYSQL_SERVER_VERSION'=>'MySQL 服务器版本',
+	'MYSQL_CONNECTION_FAILED'=>'<font color="red">连接失败.</font>',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -403,19 +408,43 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 	<!-- Section 5b MySQL connection test  -->
     <?php
 	if(in_array('mysql',$extensions)):
-    
+		
     ?>
+	<form action="<?php echo $_SERVER['PHP_SELF'].'#mysql_test';?>" method="post">
     <table class="result">
-        <tr><th><?php echo t('MYSQL_CONNECTION_TEST');?></th></tr>
+        <tr><th><a name="mysql_test"><?php echo t('MYSQL_CONNECTION_TEST');?></a></th></tr>
         <tr>
-            <td><form action="<?php echo $_SERVER['PHP_SELF'];?>"><?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" />&nbsp;
-				<?php echo t('MYSQL_HOST_PORT');?><input type="text" name="mysql_host_port" />&nbsp;
-				<?php echo t('MYSQL_USERNAME');?><input type="text" name="mysql_username" />&nbsp;
-				<?php echo t('MYSQL_PASSWORD');?><input type="password" name="mysql_password" />&nbsp;
+            <td>
+				<input type="hidden" name="mysql_test" value="mysql_test" />
+				<?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" size="10" value="localhost" />&nbsp;
+				<?php echo t('MYSQL_HOST_PORT');?>:<input type="text" name="mysql_host_port" size="4" value="3306" />&nbsp;
+				<?php echo t('MYSQL_USERNAME');?>:<input type="text" name="mysql_username" size="10" />&nbsp;
+				<?php echo t('MYSQL_PASSWORD');?>:<input type="password" name="mysql_password" size="6" />&nbsp;
 				<input type="submit" value="<?php echo t('SUBMIT');?>" />
-			</form></td>
+				<?php
+				if(isset($_POST['mysql_test'])){
+					echo '<div align="center">';
+								
+					$mysql_host=trim($_POST['mysql_host']);
+					$mysql_port=(int)trim($_POST['mysql_host_port']);
+					$mysql_user=trim($_POST['mysql_username']);
+					$mysql_pass=trim($_POST['mysql_password']);
+					if(!empty($mysql_host)&&!empty($mysql_port)&&!empty($mysql_user)){
+						$link=mysql_connect($mysql_host.':'.$mysql_port,$mysql_user,$mysql_pass);
+						if($link){
+							echo t('MYSQL_CONNECTION_OK').'<br />';
+							echo t('MYSQL_SERVER_VERSION').':'.mysql_get_server_info();
+						}else{
+							echo t('MYSQL_CONNECTION_FAILED');
+						}
+					}
+					echo '</div>';
+				}
+				?>
+			</td>
         </tr>
     </table>
+	</form>
 	<?php endif;?>
 	
 <?php
