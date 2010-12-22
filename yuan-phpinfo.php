@@ -379,7 +379,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
     <!-- Section 5 Database Support  -->
     <?php
 	$sqlite_version=function_exists('sqlite_libversion')?t('VERSION').':'.sqlite_libversion():'';
-	$mysql_client_version=function_exists('mysql_get_client_info')?t('VERSION').':'.mysql_get_client_info():'';
+	$mysql_client_version=function_exists('mysql_get_client_info')?t('MYSQL_CLIENT_VERSION').':'.mysql_get_client_info():'';
     $databases=array(
         array(t('DBA_SUPPORT'),isfun('dba_close')),
         array(t('DBX_SUPPORT'),isfun('dbx_close')),
