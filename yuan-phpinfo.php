@@ -451,15 +451,11 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 define('YUANSTOP', microtime_float());
 $time=YUANSTOP-YUANSTART;
 ?>
-    <!-- Section 6 Footer -->
-<table class="result">
-    <tr>
-        <td><?php echo t('TIME_ELAPSED').':';printf("%.4f",$time);echo t('SECOND');?></td>
-    </tr>
-</table>
+
 	<!-- Section Footer -->
 	<div id="ft">
-		Powered by <a href="http://projects.ourplanet.tk/yuan-phpinfo" target="_blank">Yuan PHPINFO</a>
+		Powered by <a href="http://projects.ourplanet.tk/yuan-phpinfo" target="_blank">Yuan PHPINFO</a><br />
+		<?php echo t('TIME_ELAPSED').':';printf("%.4f",$time);echo t('SECOND');?>
 	</div>
 </div>
 </body>
@@ -483,7 +479,7 @@ function isfun($funName = '') {
 function show($varName) {
     switch($result = get_cfg_var($varName)) {
         case 0:
-            return t('NOTSUPPORT');
+            return '<font color="red">'.t('NOTSUPPORT').'</font>';
             break;
         case 1:
             return t('SUPPORT');
