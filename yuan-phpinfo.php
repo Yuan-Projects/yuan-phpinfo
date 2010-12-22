@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
 define('V','0.1');
@@ -372,19 +373,23 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 
     <!-- Section 5 Database Support  -->
     <?php
+	$sqlite_version=function_exists('sqlite_libversion')?t('VERSION').':'.sqlite_libversion():'';
+	$mysql_client_version=function_exists('mysql_get_client_info')?t('VERSION').':'.mysql_get_client_info():'';
     $databases=array(
         array(t('DBA_SUPPORT'),isfun('dba_close')),
         array(t('DBX_SUPPORT'),isfun('dbx_close')),
         array(t('ODBC_SUPPORT'),isfun('odbc_close')),
         array(t('PDO_SUPPORT'),class_exists('PDO')?t('SUPPORT'):t('NOTSUPPORT')),
-        array(t('SQLITE_SUPPORT'),isfun("sqlite_close").'&nbsp;'.t('VERSION').':'.@sqlite_libversion()),
-        array(t('MYSQL_SUPPORT'),isfun("mysql_close").'&nbsp;'.t('MYSQL_CLIENT_VERSION').':'.@mysql_get_client_info()),
+        array(t('SQLITE_SUPPORT'),isfun("sqlite_close").'&nbsp;'.$sqlite_version),
+        array(t('MYSQL_SUPPORT'),isfun("mysql_close").'&nbsp;'.$mysql_client_version),
         array(t('MYSQLI_SUPPORT'),class_exists('MySQLi')?t('SUPPORT'):t('NOTSUPPORT')),
         array(t('DBASE_SUPPORT'),isfun('dbase_close')),
         array(t('PGSQL_SUPPORT'),isfun('pg_close')),
         array(t('MSSQL_SUPPORT'),isfun('mssql_close')),
         array(t('OCI8_SUPPORT'),isfun('oci_close')),
     );
+	//echo 's';
+	//var_dump($databases);
     ?>
     <table class="result">
         <tr><th colspan="2"><?php echo t('DB_SUPPORT');?></th></tr>
