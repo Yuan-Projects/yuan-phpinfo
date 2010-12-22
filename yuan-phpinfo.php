@@ -96,6 +96,11 @@ $en=array(
 	'DAY'=>'day(s)',
 	'HOUR'=>'hour(s)',
 	'MINUTE'=>'minute(s)',
+	
+	'MAIL_TEST'=>'mail() test',
+	'MAIL_TO'=>'Email',
+	'MAIL_OK'=>'<font color="green">Your message has been sent.</font>',
+	'MAIL_BAD'=>'<font color="red">Your message sent failed.</font>',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
@@ -186,6 +191,11 @@ $zh_cn=array(
 	'DAY'=>'天',
 	'HOUR'=>'小时',
 	'MINUTE'=>'分钟',
+	
+	'MAIL_TEST'=>'mail() 测试',
+	'MAIL_TO'=>'Email地址',
+	'MAIL_OK'=>'<font color="green">信息发送成功。</font>',
+	'MAIL_BAD'=>'<font color="red">信息发送失败。</font>',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -374,10 +384,36 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
         <?php endforeach;?>
     </table>
 
-<?php
-define('YUANSTOP', microtime_float());
-$time=YUANSTOP-YUANSTART;
-?>
+	<!-- Section 6 mail() test -->
+	<form action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
+	<table class="result">
+        <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
+        <tr>
+            <td>
+			<?php
+			if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
+				echo '<div align="center">';
+				$mailto=$_POST['mailto'];
+				$subject='mail() test sent by Yuan PHPINFO';
+				$message="I guest you are happy to see this email.:)";
+				if(@mail($mailto,$subject,$message)){
+					echo t('MAIL_OK');
+				}else{
+					echo t('MAIL_BAD');
+				}
+				echo '</div>';
+			}
+			?>
+			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input type="submit" value="<?php echo t('SUBMIT');?>" />
+			</td>
+        </tr>
+    </table>
+	</form>
+	
+	<?php
+	define('YUANSTOP', microtime_float());
+	$time=YUANSTOP-YUANSTART;
+	?>
 
 	<!-- Section Footer -->
 	<div id="ft">
@@ -659,5 +695,8 @@ function GetWMI($wmi,$strClass, $strValue = array()) {
 		$arrData[] = $arrInstance;
 	}
 	return $arrData;
+}
+function is_email($value){
+	return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i', $value);
 }
 ?>
