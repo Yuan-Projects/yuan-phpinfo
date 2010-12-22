@@ -430,7 +430,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 					$mysql_user=trim($_POST['mysql_username']);
 					$mysql_pass=trim($_POST['mysql_password']);
 					if(!empty($mysql_host)&&!empty($mysql_port)&&!empty($mysql_user)){
-						$link=mysql_connect($mysql_host.':'.$mysql_port,$mysql_user,$mysql_pass);
+						$link=@mysql_connect($mysql_host.':'.$mysql_port,$mysql_user,$mysql_pass);
 						if($link){
 							echo t('MYSQL_CONNECTION_OK').'<br />';
 							echo t('MYSQL_SERVER_VERSION').':'.mysql_get_server_info();
