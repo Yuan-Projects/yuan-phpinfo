@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
 define('V','0.1');
@@ -97,10 +98,23 @@ $en=array(
 	'HOUR'=>'hour(s)',
 	'MINUTE'=>'minute(s)',
 	
+
 	'MAIL_TEST'=>'mail() test',
 	'MAIL_TO'=>'Email',
 	'MAIL_OK'=>'<font color="green">Your message has been sent.</font>',
 	'MAIL_BAD'=>'<font color="red">Your message sent failed.</font>',
+
+	'MYSQL_CLIENT_VERSION'=>'Mysql client',
+	
+	'MYSQL_CONNECTION_TEST'=>'MySQL Connection Test',
+	'MYSQL_HOST'=>'Host',
+	'MYSQL_HOST_PORT'=>'Port',
+	'MYSQL_USERNAME'=>'Username',
+	'MYSQL_PASSWORD'=>'Password',
+	'SUBMIT'=>'Submit',
+	'MYSQL_CONNECTION_OK'=>'<font color="green">Successful connection</font>',
+	'MYSQL_SERVER_VERSION'=>'MySQL Sever Version',
+	'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
 );
 $zh_cn=array(
 	'NAME'=>'项目名称',
@@ -196,6 +210,18 @@ $zh_cn=array(
 	'MAIL_TO'=>'Email地址',
 	'MAIL_OK'=>'<font color="green">信息发送成功。</font>',
 	'MAIL_BAD'=>'<font color="red">信息发送失败。</font>',
+
+	'MYSQL_CLIENT_VERSION'=>'Mysql 客户端版本',
+	
+	'MYSQL_CONNECTION_TEST'=>'MySQL 连接测试',
+	'MYSQL_HOST'=>'地址',
+	'MYSQL_HOST_PORT'=>'端口',
+	'MYSQL_USERNAME'=>'用户名',
+	'MYSQL_PASSWORD'=>'密码',
+	'SUBMIT'=>'提交',
+	'MYSQL_CONNECTION_OK'=>'<font color="green">连接成功</font>',
+	'MYSQL_SERVER_VERSION'=>'MySQL 服务器版本',
+	'MYSQL_CONNECTION_FAILED'=>'<font color="red">连接失败.</font>',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -362,19 +388,23 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 
     <!-- Section 5 Database Support  -->
     <?php
+	$sqlite_version=function_exists('sqlite_libversion')?t('VERSION').':'.sqlite_libversion():'';
+	$mysql_client_version=function_exists('mysql_get_client_info')?t('MYSQL_CLIENT_VERSION').':'.mysql_get_client_info():'';
     $databases=array(
         array(t('DBA_SUPPORT'),isfun('dba_close')),
         array(t('DBX_SUPPORT'),isfun('dbx_close')),
         array(t('ODBC_SUPPORT'),isfun('odbc_close')),
         array(t('PDO_SUPPORT'),class_exists('PDO')?t('SUPPORT'):t('NOTSUPPORT')),
-        array(t('SQLITE_SUPPORT'),isfun("sqlite_close")),
-        array(t('MYSQL_SUPPORT'),isfun("mysql_close")),
+        array(t('SQLITE_SUPPORT'),isfun("sqlite_close").'&nbsp;'.$sqlite_version),
+        array(t('MYSQL_SUPPORT'),isfun("mysql_close").'&nbsp;'.$mysql_client_version),
         array(t('MYSQLI_SUPPORT'),class_exists('MySQLi')?t('SUPPORT'):t('NOTSUPPORT')),
         array(t('DBASE_SUPPORT'),isfun('dbase_close')),
         array(t('PGSQL_SUPPORT'),isfun('pg_close')),
         array(t('MSSQL_SUPPORT'),isfun('mssql_close')),
         array(t('OCI8_SUPPORT'),isfun('oci_close')),
     );
+	//echo 's';
+	//var_dump($databases);
     ?>
     <table class="result">
         <tr><th colspan="2"><?php echo t('DB_SUPPORT');?></th></tr>
@@ -410,6 +440,47 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         </tr>
     </table>
 	</form>
+	
+	<!-- Section 5b MySQL connection test  -->
+    <?php
+	if(in_array('mysql',$extensions)):		
+    ?>
+	<form action="<?php echo $_SERVER['PHP_SELF'].'#mysql_test';?>" method="post">
+    <table class="result">
+        <tr><th><a name="mysql_test"><?php echo t('MYSQL_CONNECTION_TEST');?></a></th></tr>
+        <tr>
+            <td>
+				<input type="hidden" name="mysql_test" value="mysql_test" />
+				<?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" size="10" value="localhost" />&nbsp;
+				<?php echo t('MYSQL_HOST_PORT');?>:<input type="text" name="mysql_host_port" size="4" value="3306" />&nbsp;
+				<?php echo t('MYSQL_USERNAME');?>:<input type="text" name="mysql_username" size="10" />&nbsp;
+				<?php echo t('MYSQL_PASSWORD');?>:<input type="password" name="mysql_password" size="6" />&nbsp;
+				<input type="submit" value="<?php echo t('SUBMIT');?>" />
+				<?php
+				if(isset($_POST['mysql_test'])){
+					echo '<div align="center">';
+								
+					$mysql_host=trim($_POST['mysql_host']);
+					$mysql_port=(int)trim($_POST['mysql_host_port']);
+					$mysql_user=trim($_POST['mysql_username']);
+					$mysql_pass=trim($_POST['mysql_password']);
+					if(!empty($mysql_host)&&!empty($mysql_port)&&!empty($mysql_user)){
+						$link=@mysql_connect($mysql_host.':'.$mysql_port,$mysql_user,$mysql_pass);
+						if($link){
+							echo t('MYSQL_CONNECTION_OK').'<br />';
+							echo t('MYSQL_SERVER_VERSION').':'.mysql_get_server_info();
+						}else{
+							echo t('MYSQL_CONNECTION_FAILED');
+						}
+					}
+					echo '</div>';
+				}
+				?>
+			</td>
+        </tr>
+    </table>
+	</form>
+	<?php endif;?>
 	
 	<?php
 	define('YUANSTOP', microtime_float());
