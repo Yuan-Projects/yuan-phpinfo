@@ -414,32 +414,6 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         </tr>
         <?php endforeach;?>
     </table>
-
-	<!-- Section 6 mail() test -->
-	<form action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
-	<table class="result">
-        <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
-        <tr>
-            <td>
-			<?php
-			if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
-				echo '<div align="center">';
-				$mailto=$_POST['mailto'];
-				$subject='mail() test sent by Yuan PHPINFO';
-				$message="I guest you are happy to see this email.:)";
-				if(@mail($mailto,$subject,$message)){
-					echo t('MAIL_OK');
-				}else{
-					echo t('MAIL_BAD');
-				}
-				echo '</div>';
-			}
-			?>
-			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
-			</td>
-        </tr>
-    </table>
-	</form>
 	
 	<!-- Section 5b MySQL connection test  -->
     <?php
@@ -481,6 +455,32 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </table>
 	</form>
 	<?php endif;?>
+	
+	<!-- Section 6 mail() test -->
+	<form action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
+	<table class="result">
+        <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
+        <tr>
+            <td>
+			<?php
+			if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
+				echo '<div align="center">';
+				$mailto=$_POST['mailto'];
+				$subject='mail() test sent by Yuan PHPINFO';
+				$message="I guest you are happy to see this email.:)";
+				if(@mail($mailto,$subject,$message)){
+					echo t('MAIL_OK');
+				}else{
+					echo t('MAIL_BAD');
+				}
+				echo '</div>';
+			}
+			?>
+			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
+			</td>
+        </tr>
+    </table>
+	</form>
 	
 	<?php
 	define('YUANSTOP', microtime_float());
