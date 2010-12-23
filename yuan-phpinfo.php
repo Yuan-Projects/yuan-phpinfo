@@ -216,6 +216,7 @@ table.result{	background:#E6ECFF none repeat scroll 0% 0%;	border-collapse:colla
 table.result th{	background:#CCD9FF none repeat scroll 0% 0%;	text-align:left;}
 table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 #ft{text-align:center;clear:both;}
+input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65DAB4 #1A664E #1A664E #65DAB4;    border-style: solid;    border-width: 1px;    color: #FFFFFF;    font-size: 12px;    font-weight: bold;    height: 20px;    line-height: 20px;    padding: 0 6px;}
 </style>
 </head>
 
@@ -404,7 +405,7 @@ table.result th, table.result td{	border:1px solid #BFCFFF;	padding:0.2em;}
 				echo '</div>';
 			}
 			?>
-			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input type="submit" value="<?php echo t('SUBMIT');?>" />
+			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
 			</td>
         </tr>
     </table>
