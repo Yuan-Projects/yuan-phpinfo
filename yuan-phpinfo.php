@@ -1,4 +1,5 @@
 <?php
+//Dev version
 error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
@@ -403,8 +404,6 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         array(t('MSSQL_SUPPORT'),isfun('mssql_close')),
         array(t('OCI8_SUPPORT'),isfun('oci_close')),
     );
-	//echo 's';
-	//var_dump($databases);
     ?>
     <table class="result">
         <tr><th colspan="2"><?php echo t('DB_SUPPORT');?></th></tr>
