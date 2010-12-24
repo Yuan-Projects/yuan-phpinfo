@@ -1,4 +1,5 @@
 <?php
+//Dev version
 error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
