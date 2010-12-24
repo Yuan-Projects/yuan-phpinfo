@@ -266,7 +266,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     
     <!-- Section 1 Server Information -->
     <table class="result">
-        <tr><th><?php echo t('NAME');?></th><th><?php echo t('RESULT');?></th></tr>
+        <tr><th colspan="2"><?php echo t('SERVER_INFO');?></th></tr>
         <?php foreach ($server_info as $info): ?>
         <tr>
             <td><?php echo $info[0];?></td><td><?php echo $info[1];?></td>
