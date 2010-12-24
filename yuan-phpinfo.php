@@ -9,7 +9,6 @@ if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
  * translated messages
  */
 $en=array(
-	'RESULT'=>'Result',
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
 	'SERVER_OS'=>'Server OS',
@@ -117,7 +116,6 @@ $en=array(
 	'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
 );
 $zh_cn=array(
-	'RESULT'=>'结果',
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
 	'SERVER_OS'=>'服务器操作系统',
