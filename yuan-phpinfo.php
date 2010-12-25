@@ -114,6 +114,11 @@ $en=array(
 	'MYSQL_CONNECTION_OK'=>'<font color="green">Successful connection</font>',
 	'MYSQL_SERVER_VERSION'=>'MySQL Sever Version',
 	'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
+	
+	'FUNCTION_CHECK'=>'Function check',
+	'FUNCTION_NAME'=>'Function name',
+	'FUNCTION_EXISTS'=>'<font color="green">function exists</font>',
+	'FUNCTION_NOT_EXISTS'=>'<font color="red">function not exists</font>',
 );
 $zh_cn=array(
 	'SERVER_INFO'=>'服务器信息',
@@ -219,6 +224,11 @@ $zh_cn=array(
 	'MYSQL_CONNECTION_OK'=>'<font color="green">连接成功</font>',
 	'MYSQL_SERVER_VERSION'=>'MySQL 服务器版本',
 	'MYSQL_CONNECTION_FAILED'=>'<font color="red">连接失败.</font>',
+	
+	'FUNCTION_CHECK'=>'函数检查',
+	'FUNCTION_NAME'=>'函数名',
+	'FUNCTION_EXISTS'=>'<font color="green">函数存在</font>',
+	'FUNCTION_NOT_EXISTS'=>'<font color="red">函数不存在</font>',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -475,6 +485,29 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 			</td>
         </tr>
     </table>
+	</form>
+	
+	<!-- Section 7 function check -->
+	<form action="<?php echo $_SERVER['PHP_SELF'].'#functioncheck';?>" method="post">
+	<table class="result">
+        <tr><th><a name="functioncheck"><?php echo t('FUNCTION_CHECK');?></a></th></tr>
+		<tr>
+			<td>
+				<?php
+					if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
+						echo '<div align="center">';
+						if(function_exists($_POST['functionname'])){
+							echo $_POST['functionname'].'&nbsp;'.t('FUNCTION_EXISTS');
+						}else{
+							echo $_POST['functionname'].'&nbsp;'.t('FUNCTION_NOT_EXISTS');
+						}
+						echo '</div>';
+					}
+				?>
+				<?php echo t('FUNCTION_NAME');?>&nbsp;<input type="text" name="functionname" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
+			</td>
+		</tr>
+	</table>
 	</form>
 	
 	<?php
