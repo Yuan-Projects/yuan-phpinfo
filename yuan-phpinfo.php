@@ -120,6 +120,9 @@ $en=array(
 	'FUNCTION_NAME'=>'Function name',
 	'FUNCTION_EXISTS'=>'<font color="green">function exists</font>',
 	'FUNCTION_NOT_EXISTS'=>'<font color="red">function not exists</font>',
+	
+	// Exception
+	'UNKNOWN'=>'Unknown',
 );
 $zh_cn=array(
 	//第一部分：服务器信息
@@ -231,6 +234,9 @@ $zh_cn=array(
 	'FUNCTION_NAME'=>'函数名',
 	'FUNCTION_EXISTS'=>'<font color="green">函数存在</font>',
 	'FUNCTION_NOT_EXISTS'=>'<font color="red">函数不存在</font>',
+	
+	// Exception
+	'UNKNOWN'=>'未知',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -264,7 +270,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         array( t('SERVER_OS'), php_uname(), ),
         array( t('SERVER_NAME').'/'.t('SERVER_ADDR'), $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'], ),
         array( t('SERVER_TIME'), date('Y-m-d H:i:s',time()), ),
-        array( t('SERVER_FREESPACE'), round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G', ),
+        array( t('SERVER_FREESPACE'), (strpos(get_cfg_var("disable_functions"),'disk_free_space') === false)?round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G':t('UNKNOWN'), ),
         array( t('SERVER_ADMIN'), $_SERVER['SERVER_ADMIN'], ),
         array( t('SERVER_PORT'), $_SERVER['SERVER_PORT'], ),
         array( t('SERVER_DOCUMENTROOT'), $_SERVER['DOCUMENT_ROOT'], ),
