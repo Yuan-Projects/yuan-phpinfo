@@ -478,28 +478,24 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr>
             <td>
 			<?php
-			if(!in_array('mail',explode(',',get_cfg_var("disable_functions"))))
-			{
-				if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
+			if(!in_array('mail',explode(',',get_cfg_var("disable_functions")))):
+				if(isset($_POST['mailto']) && is_email($_POST['mailto'])):
 					echo '<div align="center">';
 					$mailto=$_POST['mailto'];
 					$subject='mail() test sent by Yuan PHPINFO';
 					$message="I guest you are happy to see this email.:)";
-					if(@mail($mailto,$subject,$message)){
+					if(@mail($mailto,$subject,$message))
 						echo t('MAIL_OK');
-					}else{
+					else
 						echo t('MAIL_BAD');
-					}
 					echo '</div>';
-				}
+				endif;
 				?>
 				<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
 			<?php
-			}
-			else
-			{
+			else:
 				echo t('FUNCTION_MAIL_DISABLE');
-			}
+			endif;
 			?>
 			</td>
         </tr>
