@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yuan PHPInfo 
+ * @author Kang Chen <dreamneverfall@gmail.com>
+ * @copyright GPL
+ */
 //Dev version
 error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
