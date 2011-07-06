@@ -9,6 +9,7 @@ if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
  * translated messages
  */
 $en=array(
+	//Section 1:serverOverview
 	'SERVER_INFO'=>'Server Informartion',
 	'SERVER_SOFTWARE'=>'Server Software',
 	'SERVER_OS'=>'Server OS',
@@ -121,6 +122,7 @@ $en=array(
 	'FUNCTION_NOT_EXISTS'=>'<font color="red">function not exists</font>',
 );
 $zh_cn=array(
+	//第一部分：服务器信息
 	'SERVER_INFO'=>'服务器信息',
 	'SERVER_SOFTWARE'=>'服务器软件',
 	'SERVER_OS'=>'服务器操作系统',
