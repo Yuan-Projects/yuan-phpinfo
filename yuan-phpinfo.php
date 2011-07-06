@@ -123,6 +123,7 @@ $en=array(
 	
 	// Exception
 	'UNKNOWN'=>'Unknown',
+	'FUNCTION_MAIL_DISABLE'=>'mail() has been disabled',
 );
 $zh_cn=array(
 	//第一部分：服务器信息
@@ -237,6 +238,7 @@ $zh_cn=array(
 	
 	// Exception
 	'UNKNOWN'=>'未知',
+	'FUNCTION_MAIL_DISABLE'=>'函数 mail() 被禁用',
 );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -476,20 +478,29 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr>
             <td>
 			<?php
-			if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
-				echo '<div align="center">';
-				$mailto=$_POST['mailto'];
-				$subject='mail() test sent by Yuan PHPINFO';
-				$message="I guest you are happy to see this email.:)";
-				if(@mail($mailto,$subject,$message)){
-					echo t('MAIL_OK');
-				}else{
-					echo t('MAIL_BAD');
+			if(!in_array('mail',explode(',',get_cfg_var("disable_functions"))))
+			{
+				if(isset($_POST['mailto']) && is_email($_POST['mailto'])){
+					echo '<div align="center">';
+					$mailto=$_POST['mailto'];
+					$subject='mail() test sent by Yuan PHPINFO';
+					$message="I guest you are happy to see this email.:)";
+					if(@mail($mailto,$subject,$message)){
+						echo t('MAIL_OK');
+					}else{
+						echo t('MAIL_BAD');
+					}
+					echo '</div>';
 				}
-				echo '</div>';
+				?>
+				<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
+			<?php
+			}
+			else
+			{
+				echo t('FUNCTION_MAIL_DISABLE');
 			}
 			?>
-			<?php echo t('MAIL_TO');?>&nbsp;<input type="text" name="mailto" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
 			</td>
         </tr>
     </table>
