@@ -757,7 +757,7 @@ function sys_windows() {
 	}
 	$res['cpu']['model']=$res['cpu']['cache']='';//初始化
 	for ($i=0;$i<$res['cpu']['num'];$i++){
-		$res['cpu']['model'] .= $cpuinfo[0]['Name']."<br />";
+		$res['cpu']['model'] .= iconv('GBK', 'UTF-8',$cpuinfo[0]['Name'])."<br />";
 		$res['cpu']['cache'] .= $cpuinfo[0]['L2CacheSize']."<br />";
 	}
 	// SYSINFO
@@ -792,6 +792,14 @@ function sys_windows() {
 
 	return $res;
 }
+/**
+ * 
+ * @param $wmi
+ * @param $strClass
+ * @param $strValue
+ * @return array
+ *
+ */
 function GetWMI($wmi,$strClass, $strValue = array()) {
 	$arrData = array();
 
