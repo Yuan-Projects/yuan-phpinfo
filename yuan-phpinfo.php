@@ -314,7 +314,6 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 			default:
 				break;
 		}
-		echo '<pre>';var_dump(PHP_OS);var_dump($sysInfo);
 		if($sysInfo):
 		$hardware_info=array(
 			array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
