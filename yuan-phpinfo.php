@@ -537,7 +537,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 
 	<!-- Section Footer -->
 	<div id="ft">
-		Powered by <a href="http://projects.ourplanet.tk/yuan-phpinfo" target="_blank">Yuan PHPINFO</a><br />
+		Powered by <a href="http://y-projects.tk/yuan-phpinfo" target="_blank">Yuan PHPINFO</a><br />
 		<?php echo t('TIME_ELAPSED').':';printf("%.4f",$time);echo t('SECOND');?>
 	</div>
 </div>
