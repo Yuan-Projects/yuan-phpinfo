@@ -314,12 +314,13 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 			default:
 				break;
 		}
+		echo '<pre>';var_dump(PHP_OS);var_dump($sysInfo);
 		if($sysInfo):
 		$hardware_info=array(
 			array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
 			array( t('CPU_NAME'), $sysInfo['cpu']['model'], ),
 			array( t('UPTIME'), $sysInfo['uptime'], ),
-			array( t('MEMORY'), round($sysInfo['memTotal']/1024/1024,2).' G', ),//test
+			array( t('MEMORY'), round($sysInfo['memTotal']/1024,2).' G', ),//test
 		);
     ?>
     
@@ -618,20 +619,20 @@ function sys_linux()
     @preg_match_all("/cache\s+size\s{0,}\:+\s{0,}([\d\.]+\s{0,}[A-Z]+[\r\n]+)/", $str, $cache);
     @preg_match_all("/bogomips\s{0,}\:+\s{0,}([\d\.]+)[\r\n]+/", $str, $bogomips);
     if (false !== is_array($model[1]))
-        {
-        $res['cpu']['num'] = sizeof($model[1]);
-        for($i = 0; $i < $res['cpu']['num']; $i++)
-        {
-            $res['cpu']['model'][] = $model[1][$i];
-            $res['cpu']['mhz'][] = $mhz[1][$i];
-            $res['cpu']['cache'][] = $cache[1][$i];
-            $res['cpu']['bogomips'][] = $bogomips[1][$i];
-        }
-        if (false !== is_array($res['cpu']['model'])) $res['cpu']['model'] = implode("<br />", $res['cpu']['model']);
-        if (false !== is_array($res['cpu']['mhz'])) $res['cpu']['mhz'] = implode("<br />", $res['cpu']['mhz']);
-        if (false !== is_array($res['cpu']['cache'])) $res['cpu']['cache'] = implode("<br />", $res['cpu']['cache']);
-        if (false !== is_array($res['cpu']['bogomips'])) $res['cpu']['bogomips'] = implode("<br />", $res['cpu']['bogomips']);
-        }
+	{
+		$res['cpu']['num'] = sizeof($model[1]);
+		for($i = 0; $i < $res['cpu']['num']; $i++)
+		{
+			$res['cpu']['model'][] = $model[1][$i];
+			$res['cpu']['mhz'][] = $mhz[1][$i];
+			$res['cpu']['cache'][] = $cache[1][$i];
+			$res['cpu']['bogomips'][] = $bogomips[1][$i];
+		}
+		if (false !== is_array($res['cpu']['model'])) $res['cpu']['model'] = implode("<br />", $res['cpu']['model']);
+		if (false !== is_array($res['cpu']['mhz'])) $res['cpu']['mhz'] = implode("<br />", $res['cpu']['mhz']);
+		if (false !== is_array($res['cpu']['cache'])) $res['cpu']['cache'] = implode("<br />", $res['cpu']['cache']);
+		if (false !== is_array($res['cpu']['bogomips'])) $res['cpu']['bogomips'] = implode("<br />", $res['cpu']['bogomips']);
+	}
 
     // NETWORK
 
