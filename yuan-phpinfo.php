@@ -278,7 +278,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         array( t('SERVER_NAME').'/'.t('SERVER_ADDR'), $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'], ),
         array( t('SERVER_TIME'), date('Y-m-d H:i:s',time()), ),
         array( t('SERVER_FREESPACE'), (strpos(get_cfg_var("disable_functions"),'disk_free_space') === false)?round(disk_free_space(".")/(1024*1024*1024)).'&nbsp;G':t('UNKNOWN'), ),
-        array( t('SERVER_ADMIN'), $_SERVER['SERVER_ADMIN'], ),
+        array( t('SERVER_ADMIN'), @$_SERVER['SERVER_ADMIN'], ),
         array( t('SERVER_PORT'), $_SERVER['SERVER_PORT'], ),
         array( t('SERVER_DOCUMENTROOT'), $_SERVER['DOCUMENT_ROOT'], ),
         array( t('SCRIPT_FILENAME'), $_SERVER['SCRIPT_FILENAME'], ),
