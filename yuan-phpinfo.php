@@ -318,7 +318,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
             array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
             array( t('CPU_NAME'), $sysInfo['cpu']['model'], ),
             array( t('UPTIME'), $sysInfo['uptime'], ),
-            array( t('MEMORY'), round($sysInfo['memTotal']/1024,2).' G', ),//test
+            array( t('MEMORY'), round($sysInfo['memTotal']/1024/1024,2).' G', ),//We need to translate memory in KB to GB.
         );
     ?>
     
@@ -606,7 +606,10 @@ function getPreferredLanguage(){
     }
     return false;
 }
-//linux系统探测
+/**
+ * Get system information of your Linux Server.
+ * @return mixed 
+ */
 function sys_linux()
 {
     // CPU
@@ -652,16 +655,16 @@ function sys_linux()
     $str = implode("", $str);
     preg_match_all("/MemTotal\s{0,}\:+\s{0,}([\d\.]+).+?MemFree\s{0,}\:+\s{0,}([\d\.]+).+?Cached\s{0,}\:+\s{0,}([\d\.]+).+?SwapTotal\s{0,}\:+\s{0,}([\d\.]+).+?SwapFree\s{0,}\:+\s{0,}([\d\.]+)/s", $str, $buf);
 
-    $res['memTotal'] = round($buf[1][0]/1024, 2);
-    $res['memFree'] = round($buf[2][0]/1024, 2);
-    $res['memCached'] = round($buf[3][0]/1024, 2);
+    $res['memTotal'] = $buf[1][0];
+    $res['memFree'] = $buf[2][0];
+    $res['memCached'] = $buf[3][0];
     $res['memUsed'] = ($res['memTotal']-$res['memFree']);
     $res['memPercent'] = (floatval($res['memTotal'])!=0)?round($res['memUsed']/$res['memTotal']*100,2):0;
     $res['memRealUsed'] = ($res['memTotal'] - $res['memFree'] - $res['memCached']);
     $res['memRealPercent'] = (floatval($res['memTotal'])!=0)?round($res['memRealUsed']/$res['memTotal']*100,2):0;
 
-    $res['swapTotal'] = round($buf[4][0]/1024, 2);
-    $res['swapFree'] = round($buf[5][0]/1024, 2);
+    $res['swapTotal'] = $buf[4][0];
+    $res['swapFree'] = $buf[5][0];
     $res['swapUsed'] = ($res['swapTotal']-$res['swapFree']);
     $res['swapPercent'] = (floatval($res['swapTotal'])!=0)?round($res['swapUsed']/$res['swapTotal']*100,2):0;
 
@@ -674,6 +677,10 @@ function sys_linux()
     return $res;
 }
 //FreeBSD系统探测
+/**
+ * @todo 
+ *
+ */
 function sys_freebsd() {
     //CPU
     if (false === ($res['cpu']['num'] = get_key("hw.ncpu"))) return false;
