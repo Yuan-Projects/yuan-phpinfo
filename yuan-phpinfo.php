@@ -741,7 +741,7 @@ function do_command($commandName, $args) {
 }
 //windows系统探测
 function sys_windows() {
-    if (PHP_VERSION >= 5) {
+    if (PHP_VERSION >= 5 && class_exists('COM')) {
         $objLocator = new COM("WbemScripting.SWbemLocator");
         $wmi = $objLocator->ConnectServer();
         $prop = $wmi->get("Win32_PnPEntity");
