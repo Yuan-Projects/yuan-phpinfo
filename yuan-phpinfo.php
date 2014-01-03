@@ -739,7 +739,10 @@ function do_command($commandName, $args) {
     }
     return false;
 }
-//windows系统探测
+/**
+ * Get system information of your Windows Server.
+ * @return mixed 
+ */
 function sys_windows() {
     if (PHP_VERSION >= 5 && class_exists('COM')) {
         $objLocator = new COM("WbemScripting.SWbemLocator");
