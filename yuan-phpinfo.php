@@ -295,8 +295,8 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </table>
     
     <?php
-    //目前只支持 WINNT Linux FreeBSD
-    $current_supported_os=array('WINNT','Linux','FreeBSD');
+    //目前只支持 WINNT, Linux, FreeBSD, Mac OS
+    $current_supported_os=array('WINNT','Linux','FreeBSD', 'Darwin');
     if(in_array(PHP_OS,$current_supported_os)):
     
         // 根据不同系统取得CPU相关信息
@@ -310,6 +310,9 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
             case "WINNT":
                 $sysInfo = sys_windows();
                 break;
+	    case "Darwin":
+		$sysInfo = sys_macos();
+		break;
             default:
                 break;
         }
@@ -745,6 +748,21 @@ function do_command($commandName, $args) {
         return trim($buffer);
     }
     return false;
+}
+function sys_macos() {
+    $cpuName = `sysctl -n machdep.cpu.brand_string`;
+    $cpuCount = `sysctl -n hw.ncpu`;
+    $bootTime = `sysctl -n kern.boottime`;
+    $memorySize = `sysctl -n hw.memsize`;
+    if ($memorySize) {
+        $memorySize = round($memorySize/1024, 2);
+    }
+    return array(
+        'memTotal' => $memorySize,
+        'cpu' => array('num' => $cpuCount, 'model' => $cpuName),
+        'memTotal' => $memorySize,
+        'uptime' => $bootTime
+    );
 }
 /**
  * Get system information of your Windows Server.
