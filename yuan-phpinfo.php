@@ -313,6 +313,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
             default:
                 break;
         }
+        var_dump($sysInfo);
         if($sysInfo):
         $hardware_info=array(
             array( t('CPU_NUM'), $sysInfo['cpu']['num'], ),
@@ -779,7 +780,7 @@ function sys_windows() {
     $res['uptime'] .= '&nbsp;'.$min.t('MINUTE');
 
     //MEMORY
-    $res['memTotal'] = $sysinfo[0]['TotalVisibleMemorySize'];
+    $res['memTotal'] = $sysinfo[0]['TotalVisibleMemorySize']; // Total amount, in kilobytes, of physical memory available to the operating system.
     $res['memFree'] = $sysinfo[0]['FreePhysicalMemory'];
     $res['memUsed'] = $res['memTotal'] - $res['memFree'];
     $res['memPercent'] = round($res['memUsed'] / $res['memTotal']*100,2);
