@@ -823,6 +823,11 @@ function GetWMI($wmi,$strClass, $strValue = array()) {
     }
     return $arrData;
 }
+/**
+ * Check if a email is valid or not.
+ * @param string $value
+ * @return bool
+ */
 function is_email($value){
     return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i', $value);
 }
