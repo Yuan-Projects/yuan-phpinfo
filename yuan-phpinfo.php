@@ -7,7 +7,7 @@
 error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
-define('V','0.1');
+define('V','0.2');
 if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 /**
  * translated messages
@@ -245,7 +245,7 @@ $zh_cn=array(
     'FUNCTION_MAIL_DISABLE'=>'函数 mail() 被禁用',
 );
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -284,7 +284,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     );
     ?>
     
-    <!-- Section 1 Server Information -->
+    <!-- Section 0 Server Information -->
     <table class="result">
         <tr><th colspan="2"><?php echo t('SERVER_INFO');?></th></tr>
         <?php foreach ($server_info as $info): ?>
@@ -295,11 +295,9 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </table>
     
     <?php
-    //目前只支持 WINNT, Linux, FreeBSD, Mac OS
+    //WINNT, Linux, FreeBSD, Mac OS are supported in this section.
     $current_supported_os=array('WINNT','Linux','FreeBSD', 'Darwin');
     if(in_array(PHP_OS,$current_supported_os)):
-    
-        // 根据不同系统取得CPU相关信息
         switch(PHP_OS) {
             case "Linux":
                 $sysInfo = sys_linux();
@@ -310,9 +308,9 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
             case "WINNT":
                 $sysInfo = sys_windows();
                 break;
-	    case "Darwin":
-		$sysInfo = sys_macos();
-		break;
+            case "Darwin":
+                $sysInfo = sys_macos();
+                break;
             default:
                 break;
         }
@@ -325,7 +323,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         );
     ?>
     
-    <!-- Section 1-b Server Hardware -->
+    <!-- Section 1 Server Hardware -->
     <table class="result">
         <tr><th colspan="2"><?php echo t('HARDWARE');?></th></tr>
         <?php foreach ($hardware_info as $info): ?>
@@ -340,7 +338,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     <!-- Section 2 Loaded extensions -->
     <table class="result">
         <tr>
-                <th><?php echo t('LOADEDEXTENSIONS');?></th>
+            <th><?php echo t('LOADEDEXTENSIONS');?></th>
         </tr>
         <tr>
             <td><?php $extensions=get_loaded_extensions(); echo implode(' ', $extensions); ?></td>
@@ -437,7 +435,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <?php endforeach;?>
     </table>
     
-    <!-- Section 5b MySQL connection test  -->
+    <!-- Section 6 MySQL connection test  -->
     <?php
     if(in_array('mysql',$extensions)):		
     ?>
@@ -478,7 +476,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </form>
     <?php endif;?>
     
-    <!-- Section 6 mail() test -->
+    <!-- Section 7 mail() test -->
     <form action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
     <table class="result">
         <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
@@ -509,7 +507,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </table>
     </form>
     
-    <!-- Section 7 function check -->
+    <!-- Section 8 function check -->
     <form action="<?php echo $_SERVER['PHP_SELF'].'#functioncheck';?>" method="post">
     <table class="result">
         <tr><th><a name="functioncheck"><?php echo t('FUNCTION_CHECK');?></a></th></tr>
@@ -546,7 +544,6 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
 </body>
 </html>
 <?php
-/** 函数列表 **/
 /**
  * Simple function to replicate PHP 5 behaviour
  */
@@ -555,12 +552,20 @@ function microtime_float()
     list($usec, $sec) = explode(" ", microtime());
     return ((float)$usec + (float)$sec);
 }
-// 检测函数支持
+/**
+ * 
+ * @param string $funName Function names, defaults to the empty string.
+ * @return string
+ */
 function isfun($funName = '') {
     if (!$funName || trim($funName) == '' || preg_match('~[^a-z0-9\_]+~i', $funName, $tmp)) return t('ERROR');
     return (false !== function_exists($funName)) ? t('SUPPORT') :'<font color="red">'.t('NOTSUPPORT').'</font>';
 }
-//检测PHP设置参数
+/**
+ *
+ * @param $varName
+ * @return string
+ */
 function show($varName) {
     switch($result = get_cfg_var($varName)) {
         case 0:
@@ -597,6 +602,11 @@ function t($message,$params=array()){
         $message=$messages[$message];
     return $params!==array()?strtr($message, $params):$message;
 }
+/**
+ * Get user preferred language.
+ * 
+ * @return mixed
+ */
 function getPreferredLanguage(){
     if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && ($n=preg_match_all('/([\w\-]+)\s*(;\s*q\s*=\s*(\d*\.\d*))?/',$_SERVER['HTTP_ACCEPT_LANGUAGE'],$matches)) > 0)
     {
@@ -679,10 +689,9 @@ function sys_linux()
 
     return $res;
 }
-//FreeBSD系统探测
 /**
- * @todo 
- *
+ * FreeBSD
+ * @return mixed
  */
 function sys_freebsd() {
     //CPU
