@@ -120,10 +120,15 @@ $en=array(
     'MYSQL_SERVER_VERSION'=>'MySQL Sever Version',
     'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
     
-    'FUNCTION_CHECK'=>'Function check',
+    'FUNCTION_CHECK'=>'Functions check',
     'FUNCTION_NAME'=>'Function name',
     'FUNCTION_EXISTS'=>'<font color="green">function exists</font>',
-    'FUNCTION_NOT_EXISTS'=>'<font color="red">function not exists</font>',
+    'FUNCTION_NOT_EXISTS'=>'<font color="red">function does not exist</font>',
+    
+    'CLASS_CHECK'=>'Classes check',
+    'CLASS_NAME'=>'Class name',
+    'CLASS_EXISTS'=>'<font color="green">class exists</font>',
+    'CLASS_NOT_EXISTS'=>'<font color="red">class does not exist</font>',
     
     // Exception
     'UNKNOWN'=>'Unknown',
@@ -240,6 +245,11 @@ $zh_cn=array(
     'FUNCTION_EXISTS'=>'<font color="green">函数存在</font>',
     'FUNCTION_NOT_EXISTS'=>'<font color="red">函数不存在</font>',
     
+    'CLASS_CHECK'=>'函数检查',
+    'CLASS_NAME'=>'类的名字',
+    'CLASS_EXISTS'=>'<font color="green">类存在</font>',
+    'CLASS_NOT_EXISTS'=>'<font color="red">类不存在</font>',
+
     // Exception
     'UNKNOWN'=>'未知',
     'FUNCTION_MAIL_DISABLE'=>'函数 mail() 被禁用',
@@ -530,6 +540,29 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </table>
     </form>
     
+    <!-- Section 9 classes check -->
+    <form action="<?php echo $_SERVER['PHP_SELF'].'#classcheck';?>" method="post">
+    <table class="result">
+        <tr><th><a name="classcheck"><?php echo t('CLASS_CHECK');?></a></th></tr>
+        <tr>
+            <td>
+                <?php
+                    if(isset($_POST['classname']) && !empty($_POST['classname'])){
+                        echo '<div align="center">';
+                        if(class_exists($_POST['classname'])){
+                            echo $_POST['classname'].'&nbsp;'.t('CLASS_EXISTS');
+                        }else{
+                            echo $_POST['classname'].'&nbsp;'.t('CLASS_NOT_EXISTS');
+                        }
+                        echo '</div>';
+                    }
+                ?>
+                <?php echo t('CLASS_NAME');?>&nbsp;<input type="text" name="classname" /><input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
+            </td>
+        </tr>
+    </table>
+    </form>
+
     <?php
     define('YUANSTOP', microtime_float());
     $time=YUANSTOP-YUANSTART;
