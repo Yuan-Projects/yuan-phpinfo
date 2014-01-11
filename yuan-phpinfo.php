@@ -455,6 +455,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr>
             <td>
                 <input type="hidden" name="mysql_test" value="mysql_test" />
+                <input type="hidden" name="api_test" value="mysql_test" />
                 <?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" size="10" value="localhost" />&nbsp;
                 <?php echo t('MYSQL_HOST_PORT');?>:<input type="text" name="mysql_host_port" size="4" value="3306" />&nbsp;
                 <?php echo t('MYSQL_USERNAME');?>:<input type="text" name="mysql_username" size="10" />&nbsp;
@@ -492,6 +493,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
         <tr>
             <td>
+                <input type="hidden" name="api_test" value="mail_test" />
             <?php
             if(!in_array('mail',explode(',',get_cfg_var("disable_functions")))):
                 if(isset($_POST['mailto']) && is_email($_POST['mailto'])):
@@ -523,6 +525,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr><th><a name="functioncheck"><?php echo t('FUNCTION_CHECK');?></a></th></tr>
         <tr>
             <td>
+                <input type="hidden" name="api_test" value="function_test" />
                 <?php
                     if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
                         echo '<div align="center">';
@@ -546,6 +549,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <tr><th><a name="classcheck"><?php echo t('CLASS_CHECK');?></a></th></tr>
         <tr>
             <td>
+                <input type="hidden" name="api_test" value="class_test" />
                 <?php
                     if(isset($_POST['classname']) && !empty($_POST['classname'])){
                         echo '<div align="center">';
