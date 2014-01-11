@@ -89,7 +89,7 @@ $en=array(
     'dateFormat'=>'F d Y, H:i:s',
 
     'TIME_ELAPSED'=>'Time Elapsed',
-    'SECOND'=>'second',
+    'SECOND'=>'second(s)',
     
     'HARDWARE'=>'Server Hardware',
     'CPU_NUM'=>'CPU Number',
