@@ -8,7 +8,6 @@ error_reporting(E_ALL);
 define('YUANSTART', microtime_float());
 define('NAME','Yuan PHPINFO');
 define('V','0.2');
-if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
 /**
  * translated messages
  */
@@ -254,6 +253,97 @@ $zh_cn=array(
     'UNKNOWN'=>'未知',
     'FUNCTION_MAIL_DISABLE'=>'函数 mail() 被禁用',
 );
+if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
+if(isset($_POST['api_test'])){
+    switch($_POST['api_test']) {
+        case 'mysql_test':
+            $resultArray = mysql_test_result();
+            break;
+        case 'mail_test':
+            $resultArray = mail_test_result();
+            break;
+        case 'function_test':
+            $resultArray = function_test_result();
+            break;
+        case 'class_test':
+            $resultArray = class_test_result();
+            break;
+        default:
+            $resultArray = array(
+                'status'=> 0,
+                'message'=> t('UNKNOWN')
+            );
+    }
+    echo json_encode($resultArray); exit;
+}
+function mysql_test_result() {
+    $resultArray = array(
+        'status'=> 0,
+        'message'=> t('UNKNOWN')
+    );
+    $mysql_host=trim($_POST['mysql_host']);
+    $mysql_port=(int)trim($_POST['mysql_host_port']);
+    $mysql_user=trim($_POST['mysql_username']);
+    $mysql_pass=trim($_POST['mysql_password']);
+    if(!empty($mysql_host)&&!empty($mysql_port)&&!empty($mysql_user)){
+        $link=@mysql_connect($mysql_host.':'.$mysql_port,$mysql_user,$mysql_pass);
+        if($link){
+            $resultArray['message'] = t('MYSQL_CONNECTION_OK').'<br />'.t('MYSQL_SERVER_VERSION').':'.mysql_get_server_info();
+            $resultArray['status'] = 1;
+        }else{
+            $resultArray['message'] = t('MYSQL_CONNECTION_FAILED');
+        }
+    }
+    return $resultArray;
+}
+function mail_test_result() {
+    $resultArray = array(
+        'status'=> 0,
+        'message'=> t('UNKNOWN')
+    );
+    if(isset($_POST['mailto']) && is_email($_POST['mailto'])) {
+        $mailto=$_POST['mailto'];
+        $subject='mail() test sent by Yuan PHPINFO';
+        $message="I guest you are happy to see this email.:)";
+        if(@mail($mailto,$subject,$message)) {
+            $resultArray['status'] = 1;
+            $resultArray['message'] = t('MAIL_OK');
+        } else {
+            $resultArray['message'] = t('MAIL_BAD');
+        }
+    }
+    return $resultArray;
+}
+function function_test_result() {
+    $resultArray = array(
+        'status'=> 0,
+        'message'=> t('UNKNOWN')
+    );
+    if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
+        if(function_exists($_POST['functionname'])){
+            $resultArray['status'] = 1;
+            $resultArray['message'] = $_POST['functionname'].'&nbsp;'.t('FUNCTION_EXISTS');
+        }else{
+            $resultArray['message'] = $_POST['functionname'].'&nbsp;'.t('FUNCTION_NOT_EXISTS');
+        }
+    }
+    return $resultArray;
+}
+function class_test_result() {
+    $resultArray = array(
+        'status'=> 0,
+        'message'=> t('UNKNOWN')
+    );
+    if(isset($_POST['classname']) && !empty($_POST['classname'])){
+        if(class_exists($_POST['classname'])){
+            $resultArray['status'] = 1;
+            $resultArray['message'] = $_POST['classname'].'&nbsp;'.t('CLASS_EXISTS');
+        }else{
+            $resultArray['message'] = $_POST['classname'].'&nbsp;'.t('CLASS_NOT_EXISTS');
+        }
+    }
+    return $resultArray;
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -449,11 +539,11 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     <?php
     if(in_array('mysql',$extensions)):		
     ?>
-    <form action="<?php echo $_SERVER['PHP_SELF'].'#mysql_test';?>" method="post">
+    <form id="mysql_test_form" action="<?php echo $_SERVER['PHP_SELF'].'#mysql_test';?>" method="post">
     <table class="result">
         <tr><th><a name="mysql_test"><?php echo t('MYSQL_CONNECTION_TEST');?></a></th></tr>
         <tr>
-            <td>
+            <td id="mysql_test_form_tip_container">
                 <input type="hidden" name="mysql_test" value="mysql_test" />
                 <input type="hidden" name="api_test" value="mysql_test" />
                 <?php echo t('MYSQL_HOST');?>:<input type="text" name="mysql_host" size="10" value="localhost" />&nbsp;
@@ -488,11 +578,11 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     <?php endif;?>
     
     <!-- Section 7 mail() test -->
-    <form action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
+    <form id="mail_test_form" action="<?php echo $_SERVER['PHP_SELF'].'#mail';?>" method="post">
     <table class="result">
         <tr><th><a name="mail"><?php echo t('MAIL_TEST');?></a></th></tr>
         <tr>
-            <td>
+            <td id="mail_test_form_tip_container">
                 <input type="hidden" name="api_test" value="mail_test" />
             <?php
             if(!in_array('mail',explode(',',get_cfg_var("disable_functions")))):
@@ -520,11 +610,11 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </form>
     
     <!-- Section 8 function check -->
-    <form action="<?php echo $_SERVER['PHP_SELF'].'#functioncheck';?>" method="post">
+    <form id="function_test_form" action="<?php echo $_SERVER['PHP_SELF'].'#functioncheck';?>" method="post">
     <table class="result">
         <tr><th><a name="functioncheck"><?php echo t('FUNCTION_CHECK');?></a></th></tr>
         <tr>
-            <td>
+            <td id="function_test_form_tip_container">
                 <input type="hidden" name="api_test" value="function_test" />
                 <?php
                     if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
@@ -544,11 +634,11 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
     </form>
     
     <!-- Section 9 classes check -->
-    <form action="<?php echo $_SERVER['PHP_SELF'].'#classcheck';?>" method="post">
+    <form id="class_test_form" action="<?php echo $_SERVER['PHP_SELF'].'#classcheck';?>" method="post">
     <table class="result">
         <tr><th><a name="classcheck"><?php echo t('CLASS_CHECK');?></a></th></tr>
         <tr>
-            <td>
+            <td id="class_test_form_tip_container">
                 <input type="hidden" name="api_test" value="class_test" />
                 <?php
                     if(isset($_POST['classname']) && !empty($_POST['classname'])){
@@ -578,6 +668,166 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
         <?php echo t('TIME_ELAPSED').':';printf("%.4f",$time);echo t('SECOND');?>
     </div>
 </div>
+<script type="text/javascript">
+/**
+ * @author rainyjune &lt;rainyjune@live.cn&gt;
+ */
+ var YuanJS = {};
+
+YuanJS.ajax = function(options){
+    // Emulate the XMLHttpRequest() constructor in IE5 and IE6
+    if (window.XMLHttpRequest === undefined) {
+        window.XMLHttpRequest = function() {
+            try {
+                // Use the latest version of the ActiveX object if available
+                return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+            } catch (e1) {
+                try {
+                    // Otherwise fall back on an older version
+                    return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+                } catch(e2) {
+                    // Otherwise, throw an error
+                    throw new Error("XMLHttpRequest is not supported");
+                }
+            }
+        };
+    }
+    var xhr = new XMLHttpRequest();
+    var url = options.url;
+    var type = options.type ? options.type.toUpperCase() : "GET";
+    var isAsyc = !!options.asyc || true;
+    var successCallBack = options.success;
+    var errorCallBack = options.error;
+    var completeCallBack = options.complete;
+    var data = options.data ? encodeFormatData(options.data) : "";
+    var dataType = options.dataType || "text";
+    var contentType = options.contentType || "application/x-www-form-urlencoded";
+    var timeout = (options.timeout && !isNaN(options.timeout) && options.timeout > 0) ? options.timeout : 0; 
+    var timedout = false;
+    if(timeout) {
+        var timer = setTimeout(function() {
+                timedout = true;
+                xhr.abort();
+                },timeout);
+    }
+
+    if(type === "GET" && data !== "") {
+        url += "?" + data;
+    }
+    xhr.open(type, url, isAsyc);
+    if(isAsyc) {
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4) {
+                callBack();
+            }
+        }
+    }
+
+    xhr.setRequestHeader("Content-Type", contentType);
+
+    switch(type) {
+        case "POST":
+            xhr.send(data);
+            break;
+        case "GET":
+            xhr.send(null);
+    }
+    if(!isAsyc) {
+        callBack();
+    }
+
+    function callBack() {
+        if(timedout){
+            return;
+        }
+        clearTimeout(timer);
+        var resultText = xhr.responseText;
+        var resultXML = xhr.responseXML;
+        var textStatus = xhr.statusText;
+        completeCallBack && completeCallBack(xhr, textStatus);
+        if(xhr.status === 200) {
+            var resultType = xhr.getResponseHeader("Content-Type");
+            if(dataType === "xml" || (resultType.indexOf("xml") !== -1 && xhr.responseXML)){
+                successCallBack && successCallBack(resultXML, xhr);
+            } else if(dataType === "json" || resultType === "application/json") {
+                successCallBack && successCallBack(JSON.parse(resultText), xhr);
+            }else{
+                successCallBack && successCallBack(resultText, xhr);
+            }
+        } else {
+            errorCallBack && errorCallBack(xhr.status, xhr);
+        }
+    }
+    function encodeFormatData(data) {
+        if (!data) return ""; // Always return a string
+        if(typeof data === "string") return data;
+        var pairs = []; // To hold name=value pairs
+        for(var name in data) { // For each name
+            if (!data.hasOwnProperty(name)) continue; // Skip inherited
+            if (typeof data[name] === "function") continue; // Skip methods
+            var value = data[name].toString(); // Value as string
+            name = encodeURIComponent(name.replace(" ", "+")); // Encode name
+            value = encodeURIComponent(value.replace(" ", "+")); // Encode value
+            pairs.push(name + "=" + value); // Remember name=value pair
+        }
+        return pairs.join('&'); // Return joined pairs separated with &        
+    }
+}
+
+window.onload = initAll;
+function initAll()
+{
+  var forms = ['mysql_test_form', 'mail_test_form', 'function_test_form', 'class_test_form'];
+  for (var i = 0; i < forms.length; i++) {
+      var formId = forms[i];
+      id(formId).onsubmit = (function(formId) {
+          return function() {
+            YuanJS.ajax({
+              url: 'yuan-phpinfo.php',
+              type: 'POST',
+              success: function(result) {
+                 showMessage(result, formId);
+              },
+              error: function(err) {
+                alert("err");
+              },
+              dataType: 'json',
+              data: serialize(formId)
+            });
+            return false;
+        };
+      })(formId);
+  }
+}
+function showMessage(result, formId) {
+  var containerId = formId + '_tip';
+  var container = id(containerId);
+  if (!container) {
+      container = createContainer(containerId);
+  }
+  container.innerHTML = result.message;
+}
+function createContainer(containerId) {
+  var ele = document.createElement('div');
+  ele.id = containerId;
+  ele.style.align = "center";
+  id(containerId+'_container').appendChild(ele);
+  return ele;
+}
+function id(i) {
+  return document.getElementById(i);
+}
+function serialize(formId) {
+  var form = id(formId); 
+  var inputs = form.getElementsByTagName('input');
+  var obj = {};
+  for (var i = 0, l = inputs.length; i < l; i++) {
+    var input = inputs[i];
+    obj[input.name] = input.value;
+  }
+  return obj;
+}
+</script>
 </body>
 </html>
 <?php
