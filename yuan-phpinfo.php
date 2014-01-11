@@ -459,7 +459,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
                 <?php echo t('MYSQL_HOST_PORT');?>:<input type="text" name="mysql_host_port" size="4" value="3306" />&nbsp;
                 <?php echo t('MYSQL_USERNAME');?>:<input type="text" name="mysql_username" size="10" />&nbsp;
                 <?php echo t('MYSQL_PASSWORD');?>:<input type="password" name="mysql_password" size="6" />&nbsp;
-                <input type="submit" value="<?php echo t('SUBMIT');?>" />
+                <input class="btn" type="submit" value="<?php echo t('SUBMIT');?>" />
                 <?php
                 if(isset($_POST['mysql_test'])){
                     echo '<div align="center">';
