@@ -118,7 +118,7 @@ $en=array(
     'SUBMIT'=>'Submit',
     'MYSQL_CONNECTION_OK'=>'<font color="green">Successful connection</font>',
     'MYSQL_SERVER_VERSION'=>'MySQL Sever Version',
-    'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connectin failed.</font>',
+    'MYSQL_CONNECTION_FAILED'=>'<font color="red">Connection failed.</font>',
     
     'FUNCTION_CHECK'=>'Functions check',
     'FUNCTION_NAME'=>'Function name',
