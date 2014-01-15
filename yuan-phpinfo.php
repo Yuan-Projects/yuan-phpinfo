@@ -254,7 +254,7 @@ $zh_cn=array(
     'FUNCTION_MAIL_DISABLE'=>'函数 mail() 被禁用',
 );
 if(isset($_GET['q']) && $_GET['q']=='phpinfo'){	phpinfo();exit;}
-if(isset($_POST['api_test'])){
+if(isset($_POST['api_test']) && isset($_GET['q']) && $_GET['q']=='api'){
     switch($_POST['api_test']) {
         case 'mysql_test':
             $resultArray = mysql_test_result();
@@ -783,7 +783,7 @@ function initAll()
       id(formId).onsubmit = (function(formId) {
           return function() {
             YuanJS.ajax({
-              url: 'yuan-phpinfo.php',
+              url: 'yuan-phpinfo.php?q=api',
               type: 'POST',
               success: function(result) {
                  showMessage(result, formId);
