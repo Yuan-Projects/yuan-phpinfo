@@ -121,13 +121,13 @@ $en=array(
     
     'FUNCTION_CHECK'=>'Functions check',
     'FUNCTION_NAME'=>'Function name',
-    'FUNCTION_EXISTS'=>'<font color="green">function exists</font>',
-    'FUNCTION_NOT_EXISTS'=>'<font color="red">function does not exist</font>',
+    'FUNCTION_EXISTS'=>'<font color="green">The {functionName} function exists.</font>',
+    'FUNCTION_NOT_EXISTS'=>'<font color="red">The {functionName} function does not exist.</font>',
     
     'CLASS_CHECK'=>'Classes check',
     'CLASS_NAME'=>'Class name',
-    'CLASS_EXISTS'=>'<font color="green">class exists</font>',
-    'CLASS_NOT_EXISTS'=>'<font color="red">class does not exist</font>',
+    'CLASS_EXISTS'=>'<font color="green">The {className} class exists.</font>',
+    'CLASS_NOT_EXISTS'=>'<font color="red">The {className} class does not exist.</font>',
     
     // Exception
     'UNKNOWN'=>'Unknown',
@@ -322,9 +322,9 @@ function function_test_result() {
     if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
         if(function_exists($_POST['functionname'])){
             $resultArray['status'] = 1;
-            $resultArray['message'] = $_POST['functionname'].'&nbsp;'.t('FUNCTION_EXISTS');
+            $resultArray['message'] = t('FUNCTION_EXISTS', array('{functionName}'=>$_POST['functionname']));;
         }else{
-            $resultArray['message'] = $_POST['functionname'].'&nbsp;'.t('FUNCTION_NOT_EXISTS');
+            $resultArray['message'] = t('FUNCTION_NOT_EXISTS', array('{functionName}'=>$_POST['functionname']));;
         }
     }
     return $resultArray;
@@ -337,9 +337,9 @@ function class_test_result() {
     if(isset($_POST['classname']) && !empty($_POST['classname'])){
         if(class_exists($_POST['classname'])){
             $resultArray['status'] = 1;
-            $resultArray['message'] = $_POST['classname'].'&nbsp;'.t('CLASS_EXISTS');
+            $resultArray['message'] = t('CLASS_EXISTS', array('{className}'=>$_POST['classname']));
         }else{
-            $resultArray['message'] = $_POST['classname'].'&nbsp;'.t('CLASS_NOT_EXISTS');
+            $resultArray['message'] = t('CLASS_NOT_EXISTS', array('{className}'=>$_POST['classname']));
         }
     }
     return $resultArray;
@@ -620,9 +620,9 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
                     if(isset($_POST['functionname']) && !empty($_POST['functionname'])){
                         echo '<div align="center">';
                         if(function_exists($_POST['functionname'])){
-                            echo $_POST['functionname'].'&nbsp;'.t('FUNCTION_EXISTS');
+                            echo t('FUNCTION_EXISTS', array('{functionName}'=>$_POST['functionname']));
                         }else{
-                            echo $_POST['functionname'].'&nbsp;'.t('FUNCTION_NOT_EXISTS');
+                            echo t('FUNCTION_NOT_EXISTS', array('{functionName}'=>$_POST['functionname']));
                         }
                         echo '</div>';
                     }
@@ -644,9 +644,9 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
                     if(isset($_POST['classname']) && !empty($_POST['classname'])){
                         echo '<div align="center">';
                         if(class_exists($_POST['classname'])){
-                            echo $_POST['classname'].'&nbsp;'.t('CLASS_EXISTS');
+                            echo t('CLASS_EXISTS', array('{className}'=>$_POST['classname']));
                         }else{
-                            echo $_POST['classname'].'&nbsp;'.t('CLASS_NOT_EXISTS');
+                            echo t('CLASS_NOT_EXISTS', array('{className}'=>$_POST['classname']));
                         }
                         echo '</div>';
                     }
