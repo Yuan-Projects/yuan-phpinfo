@@ -304,7 +304,7 @@ function mail_test_result() {
     if(isset($_POST['mailto']) && is_email($_POST['mailto'])) {
         $mailto=$_POST['mailto'];
         $subject='mail() test sent by Yuan PHPINFO';
-        $message="I guest you are happy to see this email.:)";
+        $message="I guess you are happy to see this email.:)";
         if(@mail($mailto,$subject,$message)) {
             $resultArray['status'] = 1;
             $resultArray['message'] = t('MAIL_OK');
@@ -590,7 +590,7 @@ input.btn {    background: none repeat scroll 0 0 #10AF7B;    border-color: #65D
                     echo '<div align="center">';
                     $mailto=$_POST['mailto'];
                     $subject='mail() test sent by Yuan PHPINFO';
-                    $message="I guest you are happy to see this email.:)";
+                    $message="I guess you are happy to see this email.:)";
                     if(@mail($mailto,$subject,$message))
                         echo t('MAIL_OK');
                     else
